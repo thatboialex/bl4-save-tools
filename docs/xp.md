@@ -5,6 +5,7 @@ Level and XP values should match to avoid visual bugs with in-game counters.\
 Setting XP _below_ the expected value for a given level will cause some sort of integer overflow in the GUI counter and it will not show the correct value until you earn enough XP to be back in line with your level's expected range.
 
 XP required for **Character level 50** is `3430227`\
+XP required for **Character level 60** is `5714893`\
 XP required for **Specialization level 701** (enough to max all trees) is `7431910510`
 
 ## Research

@@ -10,7 +10,7 @@
  */
 
 // Defines maximum character level globally. Used in other files.
-let MAX_LEVEL = 50;
+let MAX_LEVEL = 60;
 
 /**
  * Defines available preset modifications for save files.

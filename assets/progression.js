@@ -167,7 +167,7 @@ function unlockAllSpecialization() {
  * Sets the character to maximum level.
  */
 function setCharacterToMaxLevel() {
-  let level = typeof MAX_LEVEL === 'number' ? MAX_LEVEL : 50;
+  let level = typeof MAX_LEVEL === 'number' ? MAX_LEVEL : 60;
   setCharacterLevel(level);
 }
 

@@ -17,7 +17,7 @@ Web-based tool for modifying Borderlands 4 (PC) save files.
   - Skip story missions
   - Skip all missions
   - Change class
-  - Max level (50)
+  - Max character level
   - Max SDU
   - Unlock all vault powers
   - Unlock all hover drives
@@ -96,7 +96,7 @@ These run JavaScript functions which apply pre-configured edits to save files qu
 - **Change class**
   - Changes the character class.
   - Refunds skill points.
-- **Max level (50)**
+- **Max level (60)**
   - Sets character level to the maximum.
   - Sets expected skill points & XP.
 - **Max SDU**
@@ -126,7 +126,7 @@ These run JavaScript functions which apply pre-configured edits to save files qu
 - **Set all backpack items to character level**
   - Updates all item serials in character inventory to match the level of the character.
 - **Set all bank items to max level**  `profile.sav`
-  - Updates all item serials in bank to have max level (50).
+  - Updates all item serials in bank to have max level (60).
 - **Unlock new game shortcuts**  `profile.sav`
   - Enables starting new characters at level 30 with story already complete.
   - Enables the specialization system.

@@ -7,6 +7,7 @@
 // Define exact XP values for common levels to avoid calculation which isn't perfectly accurate.
 const CHARACTER_LEVEL_XP = {
   50: 3430227,
+  60: 5714893,
 };
 
 function runCharCalc() {
