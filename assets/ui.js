@@ -496,6 +496,10 @@ const CHARACTER_CLASSES = {
     name: 'Rafa',
     class: 'Exo-Soldier',
   },
+  RoboDealer: {
+    name: 'C4SH',
+    class: 'Rogue (Paid DLC)',
+  },
 };
 
 /**

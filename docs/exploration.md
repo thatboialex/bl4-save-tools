@@ -1,5 +1,8 @@
 # Exploration
 
+## 2026-03-26 Major Update
+Many exploration and progression fields are now shared between characters and have moved to `profile.sav`. Updating these values in character saves will still work as expected and those changes will be merged into the shared profile save fields automatically when the save is loaded.
+
 ## Location Discovery
 Location icons (points of interest) on the map are revealed when you get close enough to discover them.
 
