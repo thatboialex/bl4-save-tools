@@ -61,9 +61,6 @@ function clearMapFog() {
     }
   }
 
-  // Set visited worlds/regions
-  visitAllWorlds(data);
-
   // Update editor
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
@@ -75,6 +72,7 @@ function clearMapFog() {
  * @param {Object} data - The parsed save file data
  */
 function visitAllWorlds(data) {
+  if (isProfileSave) return;
   const regionlist = [
     'KairosGeneric',
     'grasslands_Prison',
