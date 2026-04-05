@@ -9,6 +9,15 @@
  * - Character class selection UI
  */
 
+let UPDATE_BANNER_ID = 'update-warning-v1';
+function dismissUpdateBanner() {
+  document.getElementById('update-banner').style.display = 'none';
+  localStorage.setItem('dismissed-banner', UPDATE_BANNER_ID);
+}
+if (localStorage.getItem('dismissed-banner') !== UPDATE_BANNER_ID) {
+  document.getElementById('update-banner').style.display = 'flex';
+}
+
 // Defines maximum character level globally. Used in other files.
 let MAX_LEVEL = 60;
 
