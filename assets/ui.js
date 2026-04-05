@@ -10,12 +10,20 @@
  */
 
 let UPDATE_BANNER_ID = 'update-warning-v1';
-function dismissUpdateBanner() {
+if (localStorage.getItem('dismissed-banner') === UPDATE_BANNER_ID) {
   document.getElementById('update-banner').style.display = 'none';
-  localStorage.setItem('dismissed-banner', UPDATE_BANNER_ID);
-}
-if (localStorage.getItem('dismissed-banner') !== UPDATE_BANNER_ID) {
+} else {
   document.getElementById('update-banner').style.display = 'flex';
+}
+function toggleUpdateBanner() {
+  const banner = document.getElementById('update-banner');
+  if (banner.style.display === 'none') {
+    banner.style.display = 'flex';
+    localStorage.removeItem('dismissed-banner');
+  } else {
+    document.getElementById('update-banner').style.display = 'none';
+    localStorage.setItem('dismissed-banner', UPDATE_BANNER_ID);
+  }
 }
 
 // Defines maximum character level globally. Used in other files.

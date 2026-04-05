@@ -49,20 +49,25 @@ body {
   gap: 0.1rem 1.5rem;
 }
 
-.update-banner-list li::before {
+.list-yes li::before {
   content: '✓ ';
   color: #7ec87e;
+}
+
+.list-no li::before {
+  content: '✗ ';
+  color: #e87e7e;
 }
 
 .update-banner-list li {
   margin-bottom: 0.1rem;
 }
 
-.update-banner-close {
+.update-banner-minimize {
   background: none;
   border: none;
   color: #f3d87a;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   padding: 0 0.2rem;
   line-height: 1;
@@ -70,8 +75,24 @@ body {
   flex-shrink: 0;
 }
 
-.update-banner-close:hover {
+.update-banner-minimize:hover {
   opacity: 1;
+}
+
+.update-banner-pill {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #ffd84d;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.update-banner-pill:hover {
+  color: #ffe680;
 }
 
 body {

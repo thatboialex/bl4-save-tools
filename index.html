@@ -14,6 +14,10 @@
       >
       <span class="header-separator">|</span>
       <a href="./calculators.html">XP Calculators</a>
+      <span id="update-banner-pill-wrapper">
+        <span class="header-separator">|</span>
+        <button id="update-banner-pill" class="update-banner-pill" onclick="toggleUpdateBanner()" aria-label="Show update notice">&#x26A0; Update Notice</button>
+      </span>
     </div>
     <div id="update-banner" class="update-banner" style="display:none">
       <div class="update-banner-content">
@@ -21,24 +25,34 @@
         <p class="update-banner-body">
           Many character progression items have moved to the profile save, breaking some presets.
         </p>
-        <p class="update-banner-body">
-          The following features have been fixed and/or confirmed working:
+        <p class="update-banner-body" style="margin-top: 0.5rem">
+          These have been fixed and/or confirmed working:
         </p>
-        <ul class="update-banner-list">
-          <li>Save import / export</li>
+        <ul class="update-banner-list list-yes">
           <li>Remove map fog</li>
           <li>Discover all locations</li>
+          <li>Skip story missions</li>
           <li>Change character class</li>
-          <li>Max level</li>
+          <li>Max character level</li>
+          <li>Set/add item serials</li>
+          <li>Unlock cosmetics</li>
         </ul>
-        <p class="update-banner-body">
+        <p class="update-banner-body" style="margin-top: 0.5rem">
+          These are confirmed broken:
+        </p>
+        <ul class="update-banner-list list-no">
+          <li>Max SDU</li>
+          <li>Unlock hover drives</li>
+          <li>Unlock everything</li>
+        </ul>
+        <p class="update-banner-body" style="margin-top: 0.5rem">
           Other presets (especially for character saves) may produce incorrect results or fail silently. BACK UP YOUR SAVES!
         </p>
         <p class="update-banner-body">
           Feel free to open an <a href="https://github.com/iyre/bl4-save-tools/issues" target="_blank" rel="noopener">issue</a> if you encounter problems.
         </p>
       </div>
-      <button class="update-banner-close" onclick="dismissUpdateBanner()" aria-label="Dismiss">&#x2715;</button>
+      <button class="update-banner-minimize" onclick="toggleUpdateBanner()" aria-label="Close">&#x2715;</button>
     </div>
     <div class="main-content">
       <div class="controls-group">
