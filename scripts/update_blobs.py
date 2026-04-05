@@ -104,45 +104,57 @@ Examples:
     )
     parser.add_argument('-b', '--blobs-js', default='../assets/blobs.js', help='Path to blobs.js file (default: ../assets/blobs.js)')
     parser.add_argument('-c', '--constant', required=True, help='Constant name to update (e.g., COLLECTIBLES_COMPRESSED)')
-    
+    parser.add_argument('--save-compressed', action='store_true', help='Save the compressed string to a .txt file alongside the input file')
+
     # Input source options (mutually exclusive)
     input_group = parser.add_mutually_exclusive_group(required=True)
     input_group.add_argument('-f', '--file', help='Path to pre-compressed text file')
     input_group.add_argument('--yaml', help='Path to YAML file (will be compressed automatically)')
     input_group.add_argument('--text', help='Path to text list file (will be compressed automatically)')
-    
+
     args = parser.parse_args()
-    
+
     # Resolve relative paths from script directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
     blobs_js_path = os.path.normpath(os.path.join(script_dir, args.blobs_js))
-    
+
     # Determine input file and compression method
+    input_file = None
     if args.file:
         if not os.path.exists(args.file):
             print(f"Error: File '{args.file}' not found", file=sys.stderr)
             sys.exit(1)
+        input_file = args.file
         compressed_value = read_compressed_file(args.file)
         print(f"Reading pre-compressed data from {args.file}")
     elif args.yaml:
         if not os.path.exists(args.yaml):
             print(f"Error: YAML file '{args.yaml}' not found", file=sys.stderr)
             sys.exit(1)
+        input_file = args.yaml
         print(f"Compressing YAML file {args.yaml}...")
         compressed_value = compress_yaml_file(args.yaml)
     elif args.text:
         if not os.path.exists(args.text):
             print(f"Error: Text file '{args.text}' not found", file=sys.stderr)
             sys.exit(1)
+        input_file = args.text
         print(f"Compressing text list {args.text}...")
         compressed_value = compress_text_list(args.text)
-    
+
     if not compressed_value:
         print(f"Error: Compressed value is empty", file=sys.stderr)
         sys.exit(1)
-    
+
+    if args.save_compressed and input_file:
+        base, _ = os.path.splitext(os.path.abspath(input_file))
+        output_path = base + "_compressed.txt"
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(compressed_value)
+        print(f"✓ Saved compressed string to {output_path}")
+
     success = update_blob_constant(blobs_js_path, args.constant, compressed_value)
-    
+
     if not success:
         sys.exit(1)
 

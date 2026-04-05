@@ -408,6 +408,61 @@ unlockable_paladin:
   - Unlockable_Paladin.Skin54_NightSky
   - Unlockable_Paladin.Skin55_Blizzard
   - Unlockable_Paladin.Skin56_COV
+unlockable_robodealer:
+  entries:
+  - Unlockable_RoboDealer.Body01_Prison
+  - Unlockable_RoboDealer.Body02_Premium
+  - Unlockable_RoboDealer.Head01_Prison
+  - Unlockable_RoboDealer.head02_occult
+  - Unlockable_RoboDealer.head03_robandages
+  - Unlockable_RoboDealer.head04_cyberdome
+  - Unlockable_RoboDealer.head06_warlock
+  - Unlockable_RoboDealer.head07_robohobo
+  - Unlockable_RoboDealer.Head08_Survivalist
+  - Unlockable_RoboDealer.Head09_Electi
+  - Unlockable_RoboDealer.Head10_Transhuman
+  - Unlockable_RoboDealer.Head11_Ripper
+  - Unlockable_RoboDealer.Head12_Order
+  - Unlockable_RoboDealer.head13_robot
+  - Unlockable_RoboDealer.Head14_Thresher
+  - Unlockable_RoboDealer.Head15_CrimeLord
+  - Unlockable_RoboDealer.Head16_Premium
+  - Unlockable_RoboDealer.head18_pumpkin
+  - Unlockable_RoboDealer.head23_crashtestdummy
+  - Unlockable_RoboDealer.Skin01_Prison
+  - Unlockable_RoboDealer.Skin02_Order
+  - Unlockable_RoboDealer.skin03_ghost
+  - Unlockable_RoboDealer.Skin04_Tech
+  - Unlockable_RoboDealer.Skin05_Ripper
+  - Unlockable_RoboDealer.Skin06_Amara
+  - Unlockable_RoboDealer.Skin07_RedHanded
+  - Unlockable_RoboDealer.Skin08_Corrupted
+  - Unlockable_RoboDealer.Skin09_Sewer
+  - Unlockable_RoboDealer.Skin10_Hawaiian
+  - Unlockable_RoboDealer.Skin11_Astral
+  - Unlockable_RoboDealer.Skin12_Tediore
+  - Unlockable_RoboDealer.Skin13_3CatMoon
+  - Unlockable_RoboDealer.Skin14_Fire
+  - Unlockable_RoboDealer.Skin15_Survivalist
+  - Unlockable_RoboDealer.Skin16_Crimson
+  - Unlockable_RoboDealer.Skin17_Auger
+  - Unlockable_RoboDealer.Skin18_Electi
+  - Unlockable_RoboDealer.Skin24_PreOrder
+  - Unlockable_RoboDealer.skin26_camo
+  - Unlockable_RoboDealer.Skin27_Space
+  - Unlockable_RoboDealer.Skin29_Guardian
+  - Unlockable_RoboDealer.skin30_cute
+  - Unlockable_RoboDealer.Skin31_Koto
+  - Unlockable_RoboDealer.skin36_torgue
+  - Unlockable_RoboDealer.skin37_maliwan
+  - Unlockable_RoboDealer.skin40_veil
+  - Unlockable_RoboDealer.Skin44_Premium
+  - Unlockable_RoboDealer.Skin45_BreakFree
+  - Unlockable_RoboDealer.Skin52_Altas
+  - Unlockable_RoboDealer.Skin53_Hyperion
+  - Unlockable_RoboDealer.skin54_nightsky
+  - Unlockable_RoboDealer.Skin55_Blizzard
+  - Unlockable_RoboDealer.Skin56_COV
 unlockable_vehicles:
   entries:
   - Unlockable_Vehicles.Borg

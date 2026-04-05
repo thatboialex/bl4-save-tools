@@ -48,14 +48,14 @@ const PRESETS = [
     handler: 'clearMapFog',
     title: 'Remove Map Fog',
     desc: 'Removes fog of war from all maps.',
-    saveType: 'character',
+    saveType: 'profile',
     group: 'World',
   },
   {
     handler: 'discoverAllLocations',
     title: 'Discover All Locations',
     desc: 'Adds all location and collectible markers to the map.',
-    saveType: 'character',
+    saveType: 'profile',
     group: 'World',
   },
   {

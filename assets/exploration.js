@@ -7,29 +7,35 @@
  * - Map data compression and storage
  */
 
+const levelnames = [
+  'Intro_P',
+  'World_P',
+  'Fortress_Grasslands_P',
+  'Vault_Grasslands_P',
+  'Fortress_Shatteredlands_P',
+  'Vault_ShatteredLands_P',
+  'Fortress_Mountains_P',
+  'Vault_Mountains_P',
+  'ElpisElevator_P',
+  'Elpis_P',
+  'UpperCity_P',
+  'Raid1_P',
+  'Banjo_P',
+  'Cello_P',
+  'Cowbell_P',
+  'VaultoftheDamned_P',
+];
+
 /**
- * Clears the fog of war from all game maps.
+ * Clears the fog of war from all game maps in profile save.
  * Updates fog of discovery (FOD) data for all game levels using zlib compression.
  * Also marks all worlds and regions as visited.
  */
 function clearMapFog() {
   const data = getYamlDataFromEditor();
   if (!data) return;
+  if (!isProfileSave) return;
 
-  // Levelnames and common fields
-  const levelnames = [
-    'Intro_P',
-    'World_P',
-    'Vault_Grasslands_P',
-    'Fortress_Grasslands_P',
-    'Vault_ShatteredLands_P',
-    'Fortress_Shatteredlands_P',
-    'Vault_Mountains_P',
-    'Fortress_Mountains_P',
-    'ElpisElevator_P',
-    'Elpis_P',
-    'UpperCity_P',
-  ];
   const commonFields = {
     foddimensionx: 128,
     foddimensiony: 128,
@@ -38,18 +44,20 @@ function clearMapFog() {
   };
 
   // Ensure gbx_discovery_pc exists
-  data.gbx_discovery_pc = data.gbx_discovery_pc || {};
-  let gbx = data.gbx_discovery_pc;
+  data.domains = data.domains || {};
+  data.domains.local = data.domains.local || {};
+  data.domains.local.gbx_discovery_pc_shared = data.domains.local.gbx_discovery_pc_shared || {};
+  let pc = data.domains.local.gbx_discovery_pc_shared;
 
   // Update foddatas: replace or append
-  gbx.foddatas = gbx.foddatas || [];
+  pc.foddatas = pc.foddatas || [];
   for (const levelname of levelnames) {
     const newEntry = { levelname, ...commonFields };
-    const idx = gbx.foddatas.findIndex((e) => e.levelname === levelname);
+    const idx = pc.foddatas.findIndex((e) => e.levelname === levelname);
     if (idx !== -1) {
-      gbx.foddatas[idx] = newEntry;
+      pc.foddatas[idx] = newEntry;
     } else {
-      gbx.foddatas.push(newEntry);
+      pc.foddatas.push(newEntry);
     }
   }
 
@@ -67,19 +75,6 @@ function clearMapFog() {
  * @param {Object} data - The parsed save file data
  */
 function visitAllWorlds(data) {
-  const worldlist = [
-    'Intro_P',
-    'World_P',
-    'Fortress_Grasslands_P',
-    'Vault_Grasslands_P',
-    'Fortress_Shatteredlands_P',
-    'Vault_ShatteredLands_P',
-    'Fortress_Mountains_P',
-    'Vault_Mountains_P',
-    'ElpisElevator_P',
-    'Elpis_P',
-    'UpperCity_P',
-  ];
   const regionlist = [
     'KairosGeneric',
     'grasslands_Prison',
@@ -114,35 +109,38 @@ function visitAllWorlds(data) {
 
   // Ensure gbx_discovery_pc exists
   data.gbx_discovery_pc = data.gbx_discovery_pc || {};
-  let gbx = data.gbx_discovery_pc;
-  gbx.metrics = gbx.metrics || {};
+  let pc = data.gbx_discovery_pc;
+  pc.metrics = pc.metrics || {};
 
-  gbx.metrics.hasseenworldlist = gbx.metrics.hasseenworldlist || [];
-  for (const w of worldlist) {
-    if (!gbx.metrics.hasseenworldlist.includes(w)) {
-      gbx.metrics.hasseenworldlist.push(w);
+  pc.metrics.hasseenworldlist = pc.metrics.hasseenworldlist || [];
+  for (const levelname of levelnames) {
+    if (!pc.metrics.hasseenworldlist.includes(levelname)) {
+      pc.metrics.hasseenworldlist.push(levelname);
     }
   }
 
-  gbx.metrics.hasseenregionlist = gbx.metrics.hasseenregionlist || [];
+  pc.metrics.hasseenregionlist = pc.metrics.hasseenregionlist || [];
   for (const r of regionlist) {
-    if (!gbx.metrics.hasseenregionlist.includes(r)) {
-      gbx.metrics.hasseenregionlist.push(r);
+    if (!pc.metrics.hasseenregionlist.includes(r)) {
+      pc.metrics.hasseenregionlist.push(r);
     }
   }
-  gbx.metrics.hasseenregionlist.sort((a, b) =>
+  pc.metrics.hasseenregionlist.sort((a, b) =>
     a.toLowerCase().localeCompare(b.toLowerCase())
   );
 }
 
 /**
- * Adds locations to the player's discovered locations list.
+ * Adds locations to the discovered locations list in a profile save.
  * @param {Object} data - The parsed save file data
  * @param {string[]} locationSubstrings - Array of substrings to match against location names
  */
 function addDiscoveredLocations(data, locationSubstrings) {
-  data.gbx_discovery_pg = data.gbx_discovery_pg || {};
-  let existingBlob = data.gbx_discovery_pg.dlblob || '';
+  data.domains = data.domains || {};
+  data.domains.local = data.domains.local || {};
+  data.domains.local.gbx_discovery_pg_shared = data.domains.local.gbx_discovery_pg_shared || {};
+  let pg = data.domains.local.gbx_discovery_pg_shared;
+  let existingBlob = pg.dlblob || '';
   let existing = existingBlob.split(/:\d:/).filter(Boolean);
 
   let merged = new Set(existing);
@@ -152,7 +150,7 @@ function addDiscoveredLocations(data, locationSubstrings) {
     }
   }
 
-  data.gbx_discovery_pg.dlblob = Array.from(merged).join(':2:') + ':2:';
+  pg.dlblob = Array.from(merged).join(':2:') + ':2:';
 }
 
 /**
@@ -163,19 +161,19 @@ function addDiscoveredLocations(data, locationSubstrings) {
 function discoverAllLocations() {
   const data = getYamlDataFromEditor();
   if (!data) return;
+  if (!isProfileSave) return;
 
   const locationSubstrings = [''];
   addDiscoveredLocations(data, locationSubstrings);
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
-
-  if (typeof completeDiscoveryAchievements === 'function') completeDiscoveryAchievements();
 }
 
 function discoverSafehouseLocations() {
   const data = getYamlDataFromEditor();
   if (!data) return;
+  if (!isProfileSave) return;
 
   const prefix = 'DLMD_World_P_PoAActor_UAID_';
   const locationSubstrings = SAFEHOUSE_SILO_LOCATIONS.map((id) => prefix + id);
