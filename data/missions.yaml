@@ -590,6 +590,8 @@ missionset_side_mountainsd:
         enter_the_rift_endstate: completed
     mission_side_planetaryescape_intro2:
       status: completed
+    mission_side_planetaryescape_conmancorpseachievement:
+      status: completed
 missionset_side_postgame:
   status: completed
   cursorposition: 1
@@ -844,4 +846,106 @@ missionset_zoneactivity_silo:
     zoneactivity_shatteredlands_silo2:
       status: completed
     zoneactivity_shatteredlands_silo3:
+      status: completed
+missionset_dlc_banjo:
+  status: completed
+  missions:
+    mission_dlc_banjo:
+      status: completed
+      final:
+        banjo_witness_their_joy_endstate: completed
+        banjo_reach_dlc_map_load_endstate: completed
+missionset_dlc_raid1:
+  missions:
+    mission_dlc_raid1:
+      status: completed
+      final:
+        bc3_endstate: completed
+        gotomap_endstate: completed
+        bc2_endstate: completed
+        bc1_endstate: completed
+        gotoarena_endstate: completed
+missionset_main_cowbell_unlock:
+  status: completed
+  missions:
+    mission_main_cowbell0:
+      status: completed
+missionset_main_cowbell:
+  status: completed
+  missions:
+    mission_main_cowbell1:
+      status: completed
+      final:
+        findmancubus_endstate: completed
+        investigatepuzzle_endstate: completed
+        talkmancubus2_endstate: completed
+        inv_gotokraglake_endstate: completed
+    mission_main_cowbell2:
+      status: completed
+      final:
+        talkellieblockade_endstate: completed
+        investigatehatchery_endstate: completed
+    mission_main_cowbell3:
+      status: completed
+      final:
+        m3_shugtankscanbedamaged: completed
+        pickup_root_2_endstate: completed
+        pickup_root_endstate: completed
+    mission_main_cowbell4:
+      status: completed
+      final:
+        reachcargobay: completed
+        follow_ellie_endstate: completed
+        lts_to_vaultofthedamned_endstate: completed
+    mission_main_cowbell5:
+      status: completed
+      final:
+        reach_the_megalith_for_real_endstate: completed
+        clear_out_the_first_combat_endstate: completed
+        clear_out_the_second_combat_endstate: completed
+        clear_out_the_third_combat_endstate: completed
+missionset_micro_cowbell:
+  missions:
+    mission_micro_hosting:
+      status: completed
+      final:
+        speak_to_robby_at_the_speakeasy_endstate: completed
+    mission_micro_operation:
+      status: completed
+      final:
+        shoot_node_5_endstate: deactivated
+    mission_micro_whodidit:
+      status: completed
+missionset_side_cowbell:
+  missions:
+    mission_side_dutybeyonddeath:
+      status: completed
+      final:
+        waypoint_helper_timer_endstate: completed
+    mission_side_invasive1:
+      status: completed
+    mission_side_invasive2:
+      status: completed
+    mission_side_invasiveinvis:
+      status: completed
+    mission_side_romeoandromeo:
+      status: completed
+      final:
+        og_leg_insta_complete_endstate: completed
+        beefy_leg_insta_complete_endstate: deactivated
+        get_og_or_beef_endstate: completed
+        fact_failtentacles: true
+        fact_cleanuparms: true
+        beefy_arm_insta_complete_endstate: completed
+        og_arm_insta_complete_endstate: deactivated
+        place_beefy_arms_endstate: completed
+        place_og_legs_endstate: completed
+        place_beefy_legs_endstate: deactivated
+        place_torso_endstate: completed
+        place_og_arms_endstate: deactivated
+    mission_side_safehaven:
+      status: completed
+    mission_side_summoningcircle:
+      status: completed
+    mission_side_unfinishedbusiness:
       status: completed

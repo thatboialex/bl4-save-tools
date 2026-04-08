@@ -455,48 +455,49 @@ function completePhospheneChallenges() {
  */
 function completeAllAchievements() {
   const counters = {
-    '00_level_10': 1,
-    '01_level_30': 1,
-    '02_level_50': 1,
-    '03_uvh_5': 1,
-    '04_cosmetics_collect': 60,
-    '05_vehicles_collect': 10,
-    '06_legendaries_equip': 1,
-    '07_challenges_gear': 1,
-    '08_challenges_manufacturer': 1,
-    // complete all activities achievement doesnt seem to have a counter - it just checks completed activity missions
-    '10_worldevents_colosseum': 1,
-    '11_worldevents_airship': 1,
-    '12_worldevents_meteor': 1,
-    '13_contracts_complete': 80,
-    '14_discovery_grasslands': 54,
-    '15_discovery_mountains': 62,
-    '16_discovery_shatteredlands': 47,
-    '17_discovery_city': 21,
-    '18_worldboss_defeat': 1,
+    '00_level_10': 1, // crimson rising
+    '01_level_30': 1, // good hunter
+    '02_level_50': 1, // master of death and dance
+    '03_uvh_5': 1, // gear five!
+    '04_cosmetics_collect': 60, // the lookbook is the cookbook
+    '05_vehicles_collect': 10, // catch a ride
+    '06_legendaries_equip': 1, // i earned this
+    '07_challenges_gear': 1, // area of expertise
+    '08_challenges_manufacturer': 1, // brand equity
+    // 09 "rule of everything" - complete all activities - no counter, it just checks completed activity missions
+    '10_worldevents_colosseum': 1, // arena grande
+    '11_worldevents_airship': 1, // reverse abduction
+    '12_worldevents_meteor': 1, // shoot the moon
+    '13_contracts_complete': 80, // freelance, but not for free
+    '14_discovery_grasslands': 54, // unfaded
+    '15_discovery_mountains': 62, // the mountain provides
+    '16_discovery_shatteredlands': 47, // churn the burn
+    '17_discovery_city': 21, // useful citizen
+    '18_worldboss_defeat': 1, // pop out
     '19_vaultguardian_defeat': {
       '19_vaultguardian_grasslands': 1,
       '19_vaultguardian_mountains': 1,
       '19_vaultguardian_shatteredlands': 1,
-    },
-    '20_missions_survivalist': 3,
-    '21_missions_auger': 7,
-    '22_missions_electi': 3,
-    '23_missions_claptrap': 5,
-    '24_missions_side': 98,
-    '25_missions_grasslands': 1,
-    '26_missions_mountains': 1,
-    '27_missions_shatteredlands': 1,
-    '28_missions_elpis': 1,
-    '29_missions_main': 1,
-    '30_moxxi_hidden': 1,
-    '31_tannis_hidden': 1,
-    '32_zane_hidden': 1,
-    '33_oddman_hidden': 1,
-    '34_dave_hidden': 1,
+    }, // nothing left to guard
+    '20_missions_survivalist': 3, // pale blueberry dot
+    '21_missions_auger': 7, // who's the boss?
+    '22_missions_electi': 3, // mole money, mole problems
+    '23_missions_claptrap': 5, // widely beloved mascot
+    '24_missions_side': 98, // grassroots campaigner
+    '25_missions_grasslands': 1, // false idolator
+    '26_missions_mountains': 1, // as if moved by an occult hand
+    '27_missions_shatteredlands': 1, // long live the queen
+    '28_missions_elpis': 1, // howling on the moon
+    '29_missions_main': 1, // everything breaks
+    '30_moxxi_hidden': 1, // glucode guardian
+    '31_tannis_hidden': 1, // cut that out
+    '32_zane_hidden': 1, // all things vend
+    '33_oddman_hidden': 1, // rift incompatible
+    '34_dave_hidden': 1, // guac is extra
   };
 
   updateStatsCounters(counters, 'achievements');
+  completeDLCAchievements();
   if (typeof mergeMissionsetsWithPrefix === 'function')
     mergeMissionsetsWithPrefix('missionset_zoneactivity_');
 }
@@ -513,6 +514,35 @@ function completeDiscoveryAchievements() {
   };
 
   updateStatsCounters(counters, 'achievements');
+}
+
+function completeDLCAchievements() {
+  // bounty pack 2 (stone demon) - codename cello
+  const cello = {
+    '35_cello_enemies_defeat': 50, // ordon't you glad i didn't say eridium
+    '36_cello_boss_defeat': {
+      'pangolin': 1,
+      'phalanx': 1,
+      'cat': 1,
+      'splice': 1,
+      // ?
+    }, // fist of the mountain
+    '37_cello_missions_main': 1, // the demon's domain
+  };
+  updateStatsCounters(cello, 'cello_achievements');
+
+  // story pack 1 (vault of the damned) - codename cowbell
+  const cowbell = {
+    // 38 ? - dahl cleanup crew
+    '39_cowbell_side_missions': 10, // looking for work at the top of the world
+    // 40 ? - find me in the rift
+    '41_cowbell_complete_mission_01_polarwastes': 1, // heartwarming
+    '42_cowbell_complete_mission_02_findellie': 1, // sugar wrath
+    '43_cowbell_complete_mission_03_bloodstainedhollows': 1, // legally unspecified tincture
+    '44_cowbell_complete_mission_04_colonyship': 1, // hull froze over
+    '45_cowbell_complete_mission_05_vaultstorm': 1, // he loved you
+  };
+  updateStatsCounters(cowbell, 'cowbell_achievements');
 }
 
 /**

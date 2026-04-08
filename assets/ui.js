@@ -40,13 +40,7 @@ let MAX_LEVEL = 60;
  * @type {Array<Object>}
  */
 const PRESETS = [
-  {
-    handler: 'showChangeClassPopup',
-    title: `Change Character Class`,
-    desc: `Changes character class (select from list).`,
-    saveType: 'character',
-    group: 'Character',
-  },
+  // character
   {
     handler: 'setCharacterToMaxLevel',
     title: `Max Level (${MAX_LEVEL})`,
@@ -55,51 +49,30 @@ const PRESETS = [
     group: 'Character',
   },
   {
-    handler: 'setMaxSDU',
-    title: 'Max SDU',
-    desc: 'Purchases all SDU upgrades, granting additional Echo tokens as needed.',
+    handler: 'showChangeClassPopup',
+    title: `Change Class`,
+    desc: `Changes character class (select from list).`,
     saveType: 'character',
     group: 'Character',
-  },
-  {
-    handler: 'clearMapFog',
-    title: 'Remove Map Fog',
-    desc: 'Removes fog of war from all maps.',
-    saveType: 'profile',
-    group: 'World',
-  },
-  {
-    handler: 'discoverAllLocations',
-    title: 'Discover All Locations',
-    desc: 'Adds all location and collectible markers to the map.',
-    saveType: 'profile',
-    group: 'World',
   },
   {
     handler: 'completeAllSafehouseMissions',
-    title: 'Unlock All Safehouses',
+    title: 'Unlock Safehouses',
     desc: 'Completes all safehouse and silo activities, unlocking them as fast travel destinations.',
-    saveType: 'character',
-    group: 'World',
-  },
-  {
-    handler: 'completeAllCollectibles',
-    title: 'Unlock All Collectibles',
-    desc: 'Completes all collectibles such as echo logs, propaganda towers, and vault keys.',
-    saveType: 'character',
-    group: 'World',
-  },
-  {
-    handler: 'unlockVaultPowers',
-    title: 'Unlock All Vault Powers',
-    desc: 'Unlocks all powerups from completing vaults.',
     saveType: 'character',
     group: 'Character',
   },
   {
-    handler: 'unlockAllHoverDrives',
-    title: 'Unlock All Hover Drives',
-    desc: 'Unlocks all hover drive manufacturers and tiers.',
+    handler: 'completeAllChallenges',
+    title: 'Complete Challenges',
+    desc: "Completes all challenges (doesn't grant rewards).",
+    saveType: 'character',
+    group: 'Character',
+  },
+  {
+    handler: 'completeAllAchievements',
+    title: 'Complete Achievements',
+    desc: 'Completes all achievements.',
     saveType: 'character',
     group: 'Character',
   },
@@ -111,34 +84,6 @@ const PRESETS = [
     group: 'Character',
   },
   {
-    handler: 'completeAllChallenges',
-    title: 'Complete All Challenges',
-    desc: "Completes all challenges (doesn't grant rewards).",
-    saveType: 'character',
-    group: 'World',
-  },
-  {
-    handler: 'completeAllAchievements',
-    title: 'Complete All Achievements',
-    desc: 'Completes all achievements.',
-    saveType: 'character',
-    group: 'World',
-  },
-  {
-    handler: 'completeAllStoryMissions',
-    title: 'Skip Story Missions',
-    desc: 'Completes all main story missions.',
-    saveType: 'character',
-    group: 'World',
-  },
-  {
-    handler: 'completeAllMissions',
-    title: 'Skip All Missions',
-    desc: 'Completes all main and side missions (including activities).',
-    saveType: 'character',
-    group: 'World',
-  },
-  {
     handler: 'unlockPostgame',
     title: 'Unlock UVHM / Postgame',
     desc: 'Sets flags to unlock UVH mode and post-game activities.',
@@ -146,39 +91,92 @@ const PRESETS = [
     group: 'Character',
   },
   {
-    handler: 'unlockMaxEverything',
-    title: 'Unlock / Max Everything',
-    desc: 'Runs a sequence of presets to unlock and max progression, collectibles, SDU, and challenges.',
+    handler: 'completeAllStoryMissions',
+    title: 'Skip Story Missions',
+    desc: 'Completes all main story missions.',
     saveType: 'character',
-    group: 'Misc',
+    group: 'Character',
   },
   {
-    handler: 'updateAllSerialLevels',
-    title: 'Set All Items to Character Level',
-    desc: 'Updates serials for all backpack items to match current character level.',
+    handler: 'completeAllMissions',
+    title: 'Skip All Missions',
+    desc: 'Completes all main and side missions (including activities).',
     saveType: 'character',
-    group: 'Misc',
+    group: 'Character',
+  },
+
+  // shared
+  {
+    handler: 'clearMapFog',
+    title: 'Remove Map Fog',
+    desc: 'Removes fog of war from all maps.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
   },
   {
-    handler: 'showAddItemsPopup',
-    title: 'Add Item Serials to Backpack',
-    desc: 'Adds user-provided item serials to backpack.',
-    saveType: 'character',
-    group: 'Misc',
+    handler: 'discoverAllLocations',
+    title: 'Discover Locations',
+    desc: 'Adds all location and collectible markers to the map.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
+  },
+  {
+    handler: 'completeSharedCollectibles',
+    title: 'Unlock Collectibles',
+    desc: 'Unlocks all collectibles such as echo logs, propaganda towers, and vault keys, activities shared across characters.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
+  },
+  {
+    handler: 'setMaxSDU',
+    title: 'Max SDU',
+    desc: 'Purchases all SDU upgrades, granting additional Echo tokens if needed.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
+  },
+  {
+    handler: 'completeSharedVaultUnlocks',
+    title: 'Unlock Vault Powers',
+    desc: 'Unlocks all powerups from completing vaults.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
   },
   {
     handler: 'unlockNewGameShortcuts',
     title: 'Unlock New Game Shortcuts',
     desc: 'Unlocks all new game shortcuts (skip prologue, skip story, specialization system).',
     saveType: 'profile',
-    group: 'Misc',
+    group: 'Profile (shared)',
+  },
+  {
+    handler: 'unlockAllHoverDrives',
+    title: 'Unlock Hover Drives',
+    desc: 'Unlocks all hover drive manufacturers and tiers.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
   },
   {
     handler: 'unlockAllCosmetics',
-    title: 'Unlock All Cosmetics',
-    desc: 'Unlocks all cosmetic items.',
+    title: 'Unlock Cosmetics',
+    desc: 'Unlocks (almost) all cosmetic items.',
     saveType: 'profile',
-    group: 'Misc',
+    group: 'Profile (shared)',
+  },
+
+  // both
+  {
+    handler: 'updateAllSerialLevels',
+    title: 'Set All Items to Character Level',
+    desc: 'Updates serials for all backpack items to match current character level.',
+    saveType: 'character',
+    group: 'Both',
+  },
+  {
+    handler: 'showAddItemsPopup',
+    title: 'Add Item Serials to Backpack',
+    desc: 'Adds specified item serials to backpack.',
+    saveType: 'character',
+    group: 'Both',
   },
 ];
 
@@ -195,19 +193,9 @@ function renderPresets() {
 
   // Build list of groups present, but enforce preferred ordering so Misc is last
   const presentGroups = new Set();
-  PRESETS.forEach((p) => presentGroups.add(p.group || 'Misc'));
+  PRESETS.forEach((p) => presentGroups.add(p.group));
 
-  const preferredOrder = ['ChangeChr', 'World', 'Character', 'Misc'];
-  const orderedGroups = [];
-  for (const g of preferredOrder) {
-    if (presentGroups.has(g)) {
-      orderedGroups.push(g);
-      presentGroups.delete(g);
-    }
-  }
-  for (const g of Array.from(presentGroups)) orderedGroups.push(g);
-
-  orderedGroups.forEach((groupName) => {
+  Array.from(presentGroups).forEach((groupName) => {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'preset-category';
 
@@ -242,7 +230,7 @@ function renderPresets() {
       }
       if (preset.handler === 'showAddItemsPopup' && isProfileSave) {
         display.title = `Add Item Serials to Bank`;
-        display.desc = `Adds user-provided item serials to bank.`;
+        display.desc = `Adds specified item serials to bank.`;
         display.saveType = 'profile';
       }
 
@@ -428,6 +416,93 @@ function clearPresetApplied() {
   document.querySelectorAll('.preset-applied').forEach((btn) => {
     btn.classList.remove('preset-applied');
   });
+}
+
+/**
+ * Show a modal popup with the editor usage guide.
+ * Closes when clicking the backdrop or pressing Escape.
+ */
+function showUsageModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal modal-usage';
+  modal.style.width = '620px';
+
+  const headerRow = document.createElement('div');
+  headerRow.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:0.3rem;';
+
+  const header = document.createElement('div');
+  header.className = 'preset-group-header';
+  header.style.cssText = 'margin-bottom:0;border-bottom:none;padding-bottom:0;';
+  header.textContent = 'How to Use';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'update-banner-minimize';
+  closeBtn.style.color = '#aaa';
+  closeBtn.innerHTML = '&#x2715;';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.onclick = close;
+
+  headerRow.appendChild(header);
+  headerRow.appendChild(closeBtn);
+  modal.appendChild(headerRow);
+
+  const body = document.createElement('div');
+  body.className = 'modal-scrollable';
+  body.innerHTML = `
+    <ol>
+      <li>Select a <code>.sav</code> file (or <code>.yaml</code> if you have one from a previous export).</li>
+      <li>Enter your user ID for the <strong>PC</strong> platform you play the game on. (Needed to decrypt saves)
+        <ul>
+          <li>Steam ID is 17 digits. Find it at <a href="https://store.steampowered.com/account/" target="_blank" rel="noopener">store.steampowered.com/account</a>, or in the save file path.</li>
+          <li>Epic ID is 32 characters. Find it at <a href="https://www.epicgames.com/account/personal/" target="_blank" rel="noopener">epicgames.com/account/personal</a>.</li>
+        </ul>
+      </li>
+      <li>Click <strong>Import</strong> - this decrypts the save and loads the YAML data into the editor.</li>
+      <li><strong>Export your original save as a backup</strong> before making any changes. Keep these timestamped files in case something goes wrong.</li>
+      <li>Edit the save as desired:
+        <ul>
+          <li>Use the <strong>Apply Presets</strong> panel for common one-click changes.</li>
+          <li>Edit the YAML directly in the editor for advanced modifications.</li>
+        </ul>
+      </li>
+      <li>Click <strong>Export .sav</strong> to download the modified save.</li>
+      <li>Rename or delete your original save and replace it with the new file (remove the timestamp from the filename).</li>
+    </ol>
+    <div class="modal-section-title">Save File Location (Windows)</div>
+    <p class="modal-desc"><code>%USERPROFILE%\\Documents\\My Games\\Borderlands 4\\Saved\\SaveGames\\&lt;your_id&gt;\\Profiles\\client\\</code></p>
+    <ul>
+      <li><code>1.sav</code>, <code>2.sav</code>, etc. - character saves</li>
+      <li><code>profile.sav</code> - shared state (settings, bank, cosmetics, map fog, etc.)</li>
+    </ul>
+    <div class="modal-section-title">Notes</div>
+    <ul>
+      <li>Consider disabling cloud saves for the game to prevent files from being reverted.</li>
+      <li><u>Profile</u> saves can only be replaced while the game is closed, otherwise changes will be lost.</li>
+      <li><u>Character</u> saves can be replaced while running as long as a <em>different</em> character is loaded.</li>
+    </ul>
+  `;
+  modal.appendChild(body);
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  // Close on backdrop click (but not on modal content click)
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+
+  function close() {
+    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    document.removeEventListener('keydown', onKey);
+  }
+
+  function onKey(e) {
+    if (e.key === 'Escape') close();
+  }
+  document.addEventListener('keydown', onKey);
 }
 
 /**

@@ -69,7 +69,12 @@ body {
   color: #f3d87a;
   font-size: 1.3rem;
   cursor: pointer;
-  padding: 0 0.2rem;
+  padding: 0;
+  width: 1.6em;
+  height: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
   opacity: 0.7;
   flex-shrink: 0;
@@ -467,4 +472,48 @@ a:hover {
   justify-content: flex-end;
   gap: 8px;
   margin-top: 12px;
+}
+
+.modal-scrollable {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-usage ol {
+  margin: 8px 0 0 0;
+  padding-left: 1.4em;
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.modal-usage ol li {
+  margin-bottom: 0.5em;
+}
+
+.modal-usage ul {
+  margin: 4px 0 0 0;
+  padding-left: 1.4em;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.modal-usage .modal-section-title {
+  font-weight: 700;
+  color: #cfeaff;
+  font-size: 0.9rem;
+  margin: 12px 0 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 3px;
+}
+
+.help-btn {
+  padding: 0.2em 0.6em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  min-width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  flex-shrink: 0;
+  align-self: center;
 }

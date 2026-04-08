@@ -46,7 +46,6 @@ function completeAllMissions() {
   if (typeof setStoryValues === 'function') setStoryValues();
   if (typeof openAllVaultDoors === 'function') openAllVaultDoors();
   if (typeof discoverSafehouseLocations === 'function') discoverSafehouseLocations();
-  if (typeof updateSDUPoints === 'function') updateSDUPoints();
 }
 
 function completeAllStoryMissions() {
@@ -59,7 +58,6 @@ function completeAllSafehouseMissions() {
   mergeMissionsetsWithPrefix('missionset_zoneactivity_safehouse');
   mergeMissionsetsWithPrefix('missionset_zoneactivity_silo');
   if (typeof discoverSafehouseLocations === 'function') discoverSafehouseLocations();
-  if (typeof updateSDUPoints === 'function') updateSDUPoints();
 }
 
 /**

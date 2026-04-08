@@ -235,10 +235,14 @@ function setMaxSDU() {
   const data = getYamlDataFromEditor();
   if (!data) return;
 
+  // Ensure we're in a profile save
+  if (!data.domains || !data.domains.local) return;
+
   // Ensure progression structures exist
-  data.progression = data.progression || {};
-  data.progression.graphs = data.progression.graphs || [];
-  data.progression.point_pools = data.progression.point_pools || {};
+  data.domains.local = data.domains.local || {};
+  data.domains.local.progression_shared = data.domains.local.progression_shared || {};
+  data.domains.local.progression_shared.graphs = data.domains.local.progression_shared.graphs || [];
+  data.domains.local.progression_shared.point_pools = data.domains.local.progression_shared.point_pools || {};
 
   // Define the SDU upgrades graph as in the sample
   const points = [5, 10, 20, 30, 50, 80, 120, 235];
@@ -265,22 +269,23 @@ function setMaxSDU() {
   };
 
   // Replace existing sdu_upgrades graph if present, otherwise add it
-  const existingIdx = data.progression.graphs.findIndex((g) => g.name === 'sdu_upgrades');
+  const existingIdx = data.domains.local.progression_shared.graphs.findIndex((g) => g.name === 'sdu_upgrades');
   if (existingIdx !== -1) {
-    data.progression.graphs[existingIdx] = sduGraph;
+    data.domains.local.progression_shared.graphs[existingIdx] = sduGraph;
   } else {
-    data.progression.graphs.push(sduGraph);
+    data.domains.local.progression_shared.graphs.push(sduGraph);
   }
 
   // Calculate total points to reflect in echotokenprogresspoints
   const totalPoints = sduGraph.nodes.reduce((acc, n) => acc + (n.points_spent || 0), 0);
-  const oldPoints = data.progression.point_pools.echotokenprogresspoints || 0;
-  data.progression.point_pools.echotokenprogresspoints = Math.max(oldPoints, totalPoints);
+  const oldPoints = data.domains.local.progression_shared.point_pools.echotokenprogresspoints || 0;
+  const maxPoints = Math.max(oldPoints, totalPoints);
+  data.domains.local.progression_shared.point_pools.echotokenprogresspoints = maxPoints;
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
   console.info(
-    `Inserted/Replaced sdu_upgrades graph and set echotokenprogresspoints: ${oldPoints} -> ${data.progression.point_pools.echotokenprogresspoints}`
+    `Inserted/Replaced sdu_upgrades graph and set echotokenprogresspoints: ${oldPoints} -> ${maxPoints}`
   );
 }
 
@@ -327,10 +332,6 @@ function unlockMaxEverything() {
     if (typeof maxAmmo === 'function') maxAmmo();
     if (typeof maxCurrency === 'function') maxCurrency();
 
-    // Exploration / discovery
-    if (typeof clearMapFog === 'function') clearMapFog();
-    if (typeof discoverAllLocations === 'function') discoverAllLocations();
-
     // Collectibles / counters
     if (typeof completeAllCollectibles === 'function') completeAllCollectibles();
     if (typeof completeAllAchievements === 'function') completeAllAchievements();
@@ -338,13 +339,8 @@ function unlockMaxEverything() {
     // Missions / progression
     if (typeof completeAllMissions === 'function') completeAllMissions();
 
-    // SDU
-    if (typeof setMaxSDU === 'function') setMaxSDU();
-
     // Unlocks / systems
-    if (typeof unlockVaultPowers === 'function') unlockVaultPowers();
     if (typeof unlockPostgame === 'function') unlockPostgame();
-    if (typeof unlockAllHoverDrives === 'function') unlockAllHoverDrives();
     if (typeof unlockAllSpecialization === 'function') unlockAllSpecialization();
 
     // Challenges and counters (these are many; the master function calls the grouped helper)

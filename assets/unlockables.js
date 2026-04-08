@@ -9,96 +9,34 @@
  */
 
 /**
- * Unlocks all hover drive variants for every manufacturer.
- * Merges new hover drives with any existing ones while avoiding duplicates.
- * Entries are sorted case-insensitively for consistency.
+ * Returns true if data has the profile save unlockables structure, false otherwise.
+ * Logs a warning when the check fails.
  */
-function unlockAllHoverDrives() {
-  const data = getYamlDataFromEditor();
-  if (!data) return;
-
-  data.unlockables = data.unlockables || {};
-  data.unlockables.unlockable_hoverdrives = data.unlockables.unlockable_hoverdrives || {};
-  let existing = Array.isArray(data.unlockables.unlockable_hoverdrives.entries)
-    ? data.unlockables.unlockable_hoverdrives.entries
-    : [];
-
-  // Merge, deduplicate, and sort (case-insensitive)
-  const merged = Array.from(new Set([...existing, ...UNLOCKABLE_HOVERDRIVES])).sort((a, b) =>
-    a.localeCompare(b, undefined, { sensitivity: 'base' })
-  );
-  data.unlockables.unlockable_hoverdrives.entries = merged;
-
-  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
-  editor.setValue(newYaml);
-}
-
-const UNLOCKABLE_HOVERDRIVES = generateHoverDriveList();
-/**
- * Generates a complete list of hover drive unlock entries.
- * Creates entries for all manufacturers (Borg, Daedalus, etc.) at all 5 tiers.
- * Handles special case formatting for Jakobs tier 1 and 3.
- * @returns {string[]} Array of hover drive unlock entry strings
- */
-function generateHoverDriveList() {
-  const manufacturers = [
-    'Borg',
-    'Daedalus',
-    'Jakobs',
-    'Maliwan',
-    'Order',
-    'Tediore',
-    'Torgue',
-    'Vladof',
-  ];
-  const list = [];
-  for (const mfr of manufacturers) {
-    for (let i = 1; i <= 5; i++) {
-      // Special case: Jakobs_01 and Jakobs_03 should be "jakobs" -_-
-      if (mfr === 'Jakobs' && (i === 1 || i === 3)) {
-        list.push(`unlockable_hoverdrives.${mfr.toLowerCase()}_${String(i).padStart(2, '0')}`);
-      } else {
-        list.push(`unlockable_hoverdrives.${mfr}_${String(i).padStart(2, '0')}`);
-      }
-    }
-  }
-  return list;
-}
-
-/**
- * Unlocks all cosmetic items in a profile save.
- * Processes all cosmetic categories from the UNLOCKABLES template,
- * merging new entries with existing ones while avoiding duplicates.
- * Only works with profile saves that have the proper unlockables structure.
- */
-function unlockAllCosmetics() {
-  const data = getYamlDataFromEditor();
-  if (!data) return;
-
-  if (!data.domains || !data.domains.local || !data.domains.local.unlockables) return;
-
-  // Merge cosmetic unlocks for each key
-  Object.keys(UNLOCKABLES).forEach((key) => {
-    if (key === 'shared_progress') return; // skip this one - no cosmetics
-    if (key === 'vaultcard_purchases') return; // skip - handled differently
-
-    data.domains.local.unlockables[key] = data.domains.local.unlockables[key] || {};
-
-    let existing = data.domains.local.unlockables[key].entries || [];
-    let merged = new Set(existing);
-    for (const entry of UNLOCKABLES[key].entries) {
-      merged.add(entry);
-    }
-
-    data.domains.local.unlockables[key].entries = Array.from(merged).sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
+function hasProfileUnlockables(data) {
+  if (!data.domains?.local?.unlockables) {
+    console.log(
+      'Failed to find "domains.local.unlockables" key in YAML. ' +
+        'This preset only works with profile saves.'
     );
-  });
+    return false;
+  }
+  return true;
+}
 
-  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
-  editor.setValue(newYaml);
-  console.info('All customizations unlocked!');
-  unlockAllVaultCardPurchases();
+/**
+ * Merges entries from UNLOCKABLES[key] into data.domains.local.unlockables[key].entries,
+ * deduplicating and sorting the result.
+ */
+function mergeUnlockableEntries(data, key) {
+  data.domains.local.unlockables[key] = data.domains.local.unlockables[key] || {};
+  const existing = data.domains.local.unlockables[key].entries || [];
+  const merged = new Set(existing);
+  for (const entry of UNLOCKABLES[key].entries) {
+    merged.add(entry);
+  }
+  data.domains.local.unlockables[key].entries = Array.from(merged).sort((a, b) =>
+    a.toLowerCase().localeCompare(b.toLowerCase())
+  );
 }
 
 /**
@@ -128,6 +66,48 @@ function unlockAllVaultCardPurchases() {
 }
 
 /**
+ * Unlocks all cosmetic items in a profile save.
+ * Processes all cosmetic categories from the UNLOCKABLES template,
+ * merging new entries with existing ones while avoiding duplicates.
+ * Only works with profile saves that have the proper unlockables structure.
+ */
+function unlockAllCosmetics() {
+  const data = getYamlDataFromEditor();
+  if (!data) return;
+  if (!hasProfileUnlockables(data)) return;
+
+  // Merge cosmetic unlocks for each key
+  Object.keys(UNLOCKABLES).forEach((key) => {
+    // skip these - not cosmetics
+    if (!key.startsWith('unlockable')) return;
+    if (key === 'unlockable_hoverdrives') return;
+    mergeUnlockableEntries(data, key);
+  });
+
+  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
+  editor.setValue(newYaml);
+  console.info('All customizations unlocked!');
+  unlockAllVaultCardPurchases();
+}
+
+/**
+ * Unlocks all hover drive variants for every manufacturer.
+ * Merges new hover drives with any existing ones while avoiding duplicates.
+ * Entries are sorted case-insensitively for consistency.
+ */
+function unlockAllHoverDrives() {
+  const data = getYamlDataFromEditor();
+  if (!data) return;
+  if (!hasProfileUnlockables(data)) return;
+
+  mergeUnlockableEntries(data, 'unlockable_hoverdrives');
+
+  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
+  editor.setValue(newYaml);
+  console.info('All hover drive variants unlocked!');
+}
+
+/**
  * Unlocks all new game shortcuts in a profile save.
  * Sets shared progress entries to enable features like:
  * - Prologue skip
@@ -138,29 +118,45 @@ function unlockAllVaultCardPurchases() {
 function unlockNewGameShortcuts() {
   const data = getYamlDataFromEditor();
   if (!data) return;
+  if (!hasProfileUnlockables(data)) return;
 
-  // Be very sure we're in a profile save
-  if (!data.domains || !data.domains.local || !data.domains.local.unlockables) {
-    console.log(
-      'Failed to find "domains.local.unlockables" key in YAML. ' +
-        'This preset only works with profile saves.'
-    );
-    return;
-  }
-
-  data.domains.local.unlockables.shared_progress =
-    data.domains.local.unlockables.shared_progress || {};
-  let existing = data.domains.local.unlockables.shared_progress.entries || [];
-  let merged = new Set(existing);
-  for (const entry of UNLOCKABLES.shared_progress.entries) {
-    merged.add(entry);
-  }
-
-  data.domains.local.unlockables.shared_progress.entries = Array.from(merged).sort((a, b) =>
-    a.toLowerCase().localeCompare(b.toLowerCase())
-  );
+  mergeUnlockableEntries(data, 'shared_progress');
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
   console.info('All new game shortcuts unlocked!');
 }
+
+/**
+ * Completes all shared collectibles in a profile save.
+ * This includes ECHO logs as well as activities.
+ */
+function completeSharedCollectibles() {
+  const data = getYamlDataFromEditor();
+  if (!data) return;
+  if (!hasProfileUnlockables(data)) return;
+
+  for (const key of ['echo_upgrade_challenges', 'echo_log_challenges', 'sharedprogress_cello', 'sharedprogress_cowbell']) {
+    mergeUnlockableEntries(data, key);
+  }
+
+  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
+  editor.setValue(newYaml);
+  console.info('All shared collectibles completed!');
+}
+
+/**
+ * Completes all shared vault unlocks in a profile save.
+ */
+function completeSharedVaultUnlocks() {
+  const data = getYamlDataFromEditor();
+  if (!data) return;
+  if (!hasProfileUnlockables(data)) return;
+
+  mergeUnlockableEntries(data, 'vault_object_challenges');
+
+  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
+  editor.setValue(newYaml);
+  console.info('All vault unlocks completed!');
+}
+

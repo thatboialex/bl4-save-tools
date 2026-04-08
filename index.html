@@ -23,31 +23,16 @@
       <div class="update-banner-content">
         <div class="update-banner-title">2026-03-26 :: Major Game Update</div>
         <p class="update-banner-body">
-          Many character progression items have moved to the profile save, breaking some presets.
+          Many character progression items have moved to the profile save, breaking some presets. Fixes are in-progress.
         </p>
         <p class="update-banner-body" style="margin-top: 0.5rem">
-          These have been fixed and/or confirmed working:
-        </p>
-        <ul class="update-banner-list list-yes">
-          <li>Remove map fog</li>
-          <li>Discover all locations</li>
-          <li>Skip story missions</li>
-          <li>Change character class</li>
-          <li>Max character level</li>
-          <li>Set/add item serials</li>
-          <li>Unlock cosmetics</li>
-        </ul>
-        <p class="update-banner-body" style="margin-top: 0.5rem">
-          These are confirmed broken:
+          These are still broken/incomplete:
         </p>
         <ul class="update-banner-list list-no">
-          <li>Max SDU</li>
-          <li>Unlock hover drives</li>
-          <li>Unlock everything</li>
+          <li>Skip all missions<br>(missing new content)</li>
+          <li>Complete achievements<br>(missing new content)</li>
+          <li>Unlock cosmetics<br>(missing new content)</li>
         </ul>
-        <p class="update-banner-body" style="margin-top: 0.5rem">
-          Other presets (especially for character saves) may produce incorrect results or fail silently. BACK UP YOUR SAVES!
-        </p>
         <p class="update-banner-body">
           Feel free to open an <a href="https://github.com/iyre/bl4-save-tools/issues" target="_blank" rel="noopener">issue</a> if you encounter problems.
         </p>
@@ -57,8 +42,9 @@
     <div class="main-content">
       <div class="controls-group">
         <div id="input-section" class="section">
-          <div class="section-header">
+          <div class="section-header editor-header">
             <h2>Import Save</h2>
+            <button class="secondary help-btn" onclick="showUsageModal()" title="How to use this editor">?</button>
           </div>
           <div id="input-controls">
             <label>Select .sav or .yaml file: <input type="file" id="fileInput" /></label>
