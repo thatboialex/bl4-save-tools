@@ -1,7 +1,7 @@
 /**
  * Character progression and advancement system module.
  * Handles:
- * - SDU points and upgrades
+ * - Echo points and SDU upgrades
  * - Character level and experience
  * - Specialization system unlocks
  * - Character class management
@@ -9,74 +9,52 @@
  */
 
 /**
- * Updates the SDU (Storage Deck Upgrade) points based on completed activities and collectibles.
+ * Updates Echo points based on completed activities and collectibles.
  * Points are awarded for:
  * - Completed zone activities (40 points each)
  * - Various collectible types with different point values
  * Only updates if the calculated total is higher than existing points.
  */
-function updateSDUPoints() {
+function updateEchoPoints() {
   const data = getYamlDataFromEditor();
   if (!data) return;
+  // Ensure we're in a profile save
+  if (!data.domains || !data.domains.local) return;
 
-  let pointTotal = 0;
+  const entries = data.domains.local.unlockables?.echo_upgrade_challenges?.entries || [];
 
-  // Activities
-  const activityPoints = 40;
-  const activityNames = [
-    'missionset_zoneactivity_crawler',
-    'missionset_zoneactivity_drillsite',
-    'missionset_zoneactivity_mine',
-    'missionset_zoneactivity_orderbunker',
-    'missionset_zoneactivity_safehouse',
-    'missionset_zoneactivity_silo',
-  ];
-
-  const missionSets = (data.missions || {}).local_sets || {};
-  for (const activity of activityNames) {
-    const missions = (missionSets[activity] || {}).missions || {};
-    let completedActivities = 0;
-    for (const m of Object.values(missions)) {
-      if (typeof m === 'object' && m.status === 'completed') {
-        completedActivities += 1;
-      }
-    }
-    pointTotal += completedActivities * activityPoints;
-  }
-
-  // Collectibles
-  const collectiblePoints = {
-    propaspeakers: 20,
-    capsules: 15,
-    evocariums: 15,
-    augurshrines: 10,
-    caches: 10,
-    safes: 10,
-    vaultsymbols: 5,
+  // entry names follow the format "echo_upgrade_challenges.<activity|collect>_<type>_<uniqueid>"
+  const valueMap = {
+    activity: 40,
+    collect_propaspeakers: 20,
+    collect_capsules: 15,
+    collect_evocariums: 15,
+    collect_shrines: 10,
+    collect_caches: 10,
+    collect_safes: 10,
+    collect_vaultsymbols: 5,
   };
 
-  const collectibles = ((data.stats || {}).openworld || {}).collectibles || {};
-  for (const key in collectiblePoints) {
-    if (collectibles.hasOwnProperty(key)) {
-      if (typeof collectibles[key] === 'object') {
-        pointTotal += Object.keys(collectibles[key]).length * collectiblePoints[key];
-      } else {
-        pointTotal += collectiblePoints[key];
-      }
-    }
+  let pointTotal = 0;
+  for (const [type, value] of Object.entries(valueMap)) {
+    const prefix = `echo_upgrade_challenges.${type}_`;
+    const count = entries.filter(c => typeof c === 'string' && c.startsWith(prefix)).length;
+    pointTotal += count * value;
   }
 
-  // Write value to progression.point_pools.echotokenprogresspoints only if higher
-  data.progression = data.progression || {};
-  data.progression.point_pools = data.progression.point_pools || {};
-  const oldPointTotal = data.progression.point_pools.echotokenprogresspoints || 0;
+  // Ensure point_pools key exists
+  data.domains.local = data.domains.local || {};
+  data.domains.local.progression_shared = data.domains.local.progression_shared || {};
+  data.domains.local.progression_shared.point_pools = data.domains.local.progression_shared.point_pools || {};
+  // Write value to echotokenprogresspoints only if higher
+  const oldPointTotal = data.domains.local.progression_shared.point_pools.echotokenprogresspoints || 0;
   if (pointTotal <= oldPointTotal) {
     console.log(
       `Not updating echotokenprogresspoints: current ${oldPointTotal} > calculated ${pointTotal}`
     );
     return;
   }
-  data.progression.point_pools.echotokenprogresspoints = pointTotal;
+  data.domains.local.progression_shared.point_pools.echotokenprogresspoints = pointTotal;
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);

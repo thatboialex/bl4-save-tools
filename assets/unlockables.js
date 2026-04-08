@@ -143,6 +143,7 @@ function completeSharedCollectibles() {
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
   console.info('All shared collectibles completed!');
+  updateEchoPoints();
 }
 
 /**
