@@ -103,6 +103,17 @@ function visitAllWorlds(data) {
     'city_RegionB',
     'city_RegionC',
     'city_Upper',
+    'Loader',
+    'Banjo',
+    'Raid1',
+    'Cello',
+    'Cowbell',
+    'Cowbell_CrookedTeeth',
+    'Cowbell_Speakeasy',
+    'Cowbell_BloodstainedHollow',
+    'Cowbell_WindsweptWastes',
+    'Cowbell_Feuermann',
+    'Cowbell_VaultOfTheDamned',
   ].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
   // Ensure gbx_discovery_pc exists
