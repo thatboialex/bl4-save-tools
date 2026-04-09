@@ -547,7 +547,13 @@ unlockable_darksiren:
   - Unlockable_DarkSiren.Skin54_NightSky
   - Unlockable_DarkSiren.Skin55_Blizzard
   - Unlockable_DarkSiren.Skin56_COV
+  - Unlockable_DarkSiren.skin57_mecharecruit
+  - Unlockable_DarkSiren.skin58_cyberchunk
+  - Unlockable_DarkSiren.skin59_beasttoad
+  - Unlockable_DarkSiren.skin60_organicpanic
   - Unlockable_DarkSiren.Skin61_Fullmetal
+  - Unlockable_DarkSiren.Skin62_BrokenHeart
+  - Unlockable_DarkSiren.Skin63_SaintPatrick
   - Unlockable_DarkSiren.Skin67_Scav
 unlockable_echo4:
   entries:
@@ -566,6 +572,8 @@ unlockable_echo4:
   - Unlockable_Echo4.Attachment13_FishingHat
   - Unlockable_Echo4.Attachment14_SantaHat
   - Unlockable_Echo4.Attachment15_NeonStar
+  - Unlockable_Echo4.attachment16
+  - Unlockable_Echo4.attachment17
   - Unlockable_Echo4.Attachment18_MutantFlower
   - Unlockable_Echo4.Attachment19_DogTags
   - Unlockable_Echo4.Attachment20_GoreClot
@@ -629,7 +637,13 @@ unlockable_echo4:
   - Unlockable_Echo4.Skin54_NightSky
   - Unlockable_Echo4.Skin55_Blizzard
   - Unlockable_Echo4.Skin56_COV
+  - Unlockable_Echo4.skin57_mecharecruit
+  - Unlockable_Echo4.skin58_cyberchunk
+  - Unlockable_Echo4.skin59_beasttoad
+  - Unlockable_Echo4.skin60_organicpanic
   - Unlockable_Echo4.Skin61_Fullmetal
+  - Unlockable_Echo4.Skin62_BrokenHeart
+  - Unlockable_Echo4.Skin63_SaintPatrick
   - Unlockable_Echo4.Skin65_Hearts
   - Unlockable_Echo4.Skin66_Dahlwinter
 unlockable_exosoldier:
@@ -720,7 +734,13 @@ unlockable_exosoldier:
   - Unlockable_ExoSoldier.Skin54_NightSky
   - Unlockable_ExoSoldier.Skin55_Blizzard
   - Unlockable_ExoSoldier.Skin56_COV
+  - Unlockable_ExoSoldier.skin57_mecharecruit
+  - Unlockable_ExoSoldier.skin58_cyberchunk
+  - Unlockable_ExoSoldier.skin59_beasttoad
+  - Unlockable_ExoSoldier.skin60_organicpanic
   - Unlockable_ExoSoldier.Skin61_Fullmetal
+  - Unlockable_ExoSoldier.Skin62_BrokenHeart
+  - Unlockable_ExoSoldier.Skin63_SaintPatrick
   - Unlockable_ExoSoldier.Skin67_Scav
 unlockable_gravitar:
   entries:
@@ -810,7 +830,13 @@ unlockable_gravitar:
   - Unlockable_Gravitar.Skin54_NightSky
   - Unlockable_Gravitar.Skin55_Blizzard
   - Unlockable_Gravitar.Skin56_COV
+  - Unlockable_Gravitar.skin57_mecharecruit
+  - Unlockable_Gravitar.skin58_cyberchunk
+  - Unlockable_Gravitar.skin59_beasttoad
+  - Unlockable_Gravitar.skin60_organicpanic
   - Unlockable_Gravitar.Skin61_Fullmetal
+  - Unlockable_Gravitar.Skin62_BrokenHeart
+  - Unlockable_Gravitar.Skin63_SaintPatrick
   - Unlockable_Gravitar.Skin67_Scav
 unlockable_hoverdrives:
   entries:
@@ -942,7 +968,13 @@ unlockable_paladin:
   - Unlockable_Paladin.Skin54_NightSky
   - Unlockable_Paladin.Skin55_Blizzard
   - Unlockable_Paladin.Skin56_COV
+  - Unlockable_Paladin.skin57_mecharecruit
+  - Unlockable_Paladin.skin58_cyberchunk
+  - Unlockable_Paladin.skin59_beasttoad
+  - Unlockable_Paladin.skin60_organicpanic
   - Unlockable_Paladin.Skin61_Fullmetal
+  - Unlockable_Paladin.Skin62_BrokenHeart
+  - Unlockable_Paladin.Skin63_SaintPatrick
   - Unlockable_Paladin.Skin67_Scav
 unlockable_robodealer:
   entries:
@@ -969,6 +1001,9 @@ unlockable_robodealer:
   - Unlockable_RoboDealer.Head21_Reindeer
   - Unlockable_RoboDealer.Head23_Crashtestdummy
   - Unlockable_RoboDealer.Head25_Robofeathers
+  - Unlockable_RoboDealer.head26_giftbox
+  - Unlockable_RoboDealer.head27_nutcracker
+  - Unlockable_RoboDealer.head28_krampus
   - Unlockable_RoboDealer.Head29_Kalamari
   - Unlockable_RoboDealer.Head30_Lizard
   - Unlockable_RoboDealer.Head31_Tinhead
@@ -1012,12 +1047,22 @@ unlockable_robodealer:
   - Unlockable_RoboDealer.Skin40_Veil
   - Unlockable_RoboDealer.Skin44_Premium
   - Unlockable_RoboDealer.Skin45_BreakFree
+  - Unlockable_RoboDealer.skin46_ripwrappings
+  - Unlockable_RoboDealer.skin47_hanginglights
+  - Unlockable_RoboDealer.skin48_krampusclaus
+  - Unlockable_RoboDealer.skin49_midcentury
   - Unlockable_RoboDealer.Skin52_Altas
   - Unlockable_RoboDealer.Skin53_Hyperion
   - Unlockable_RoboDealer.Skin54_NightSky
   - Unlockable_RoboDealer.Skin55_Blizzard
   - Unlockable_RoboDealer.Skin56_COV
+  - Unlockable_RoboDealer.skin57_mecharecruit
+  - Unlockable_RoboDealer.skin58_cyberchunk
+  - Unlockable_RoboDealer.skin59_beasttoad
+  - Unlockable_RoboDealer.skin60_organicpanic
   - Unlockable_RoboDealer.Skin61_Fullmetal
+  - Unlockable_RoboDealer.Skin62_BrokenHeart
+  - Unlockable_RoboDealer.Skin63_SaintPatrick
   - Unlockable_RoboDealer.Skin67_Scav
 unlockable_vehicles:
   entries:
@@ -1082,6 +1127,11 @@ unlockable_vehicles:
   - Unlockable_Vehicles.Mat55_ThatsWrap
   - Unlockable_Vehicles.Mat56_KrampStyle
   - Unlockable_Vehicles.Mat57_FrostyReception
+  - Unlockable_Vehicles.mat58
+  - Unlockable_Vehicles.mat59
+  - Unlockable_Vehicles.mat60
+  - Unlockable_Vehicles.mat61
+  - Unlockable_Vehicles.mat62
   - Unlockable_Vehicles.Mat63_GlacialRacer
   - Unlockable_Vehicles.Mat66_Exnihilo
   - Unlockable_Vehicles.Mountain
@@ -1135,6 +1185,11 @@ unlockable_weapons:
   - Unlockable_Weapons.Mat43_Snowfall
   - Unlockable_Weapons.Mat44_GiftWrap
   - Unlockable_Weapons.Mat45_Gingerbread
+  - Unlockable_Weapons.mat46_mechyeah
+  - Unlockable_Weapons.mat47_assault
+  - Unlockable_Weapons.mat48_boltron
+  - Unlockable_Weapons.mat49_furboy
+  - Unlockable_Weapons.mat50_spicyiguana
   - Unlockable_Weapons.Mat54_Shipwreck
   - Unlockable_Weapons.shiny_anarchy
   - Unlockable_Weapons.shiny_asher
@@ -1244,12 +1299,22 @@ vaultcard_purchases:
 - Unlockable_DarkSiren.Skin47_HangingLights
 - Unlockable_DarkSiren.Skin48_KrampusClaus
 - Unlockable_DarkSiren.Skin49_MidCentury
+- Unlockable_DarkSiren.Skin57_MechaRecruit
+- Unlockable_DarkSiren.Skin58_CyberChunk
+- Unlockable_DarkSiren.Skin59_BeastToad
+- Unlockable_DarkSiren.Skin60_OrganicPanic
 - Unlockable_Echo4.Attachment14_SantaHat
 - Unlockable_Echo4.Attachment15_NeonStar
+- Unlockable_Echo4.Attachment16
+- Unlockable_Echo4.Attachment17
 - Unlockable_Echo4.Skin46_RipWrappings
 - Unlockable_Echo4.Skin47_HangingLights
 - Unlockable_Echo4.Skin48_KrampusClaus
 - Unlockable_Echo4.Skin49_MidCentury
+- Unlockable_Echo4.Skin57_MechaRecruit
+- Unlockable_Echo4.Skin58_CyberChunk
+- Unlockable_Echo4.Skin59_BeastToad
+- Unlockable_Echo4.Skin60_OrganicPanic
 - Unlockable_ExoSoldier.Head21_Reindeeer
 - Unlockable_ExoSoldier.Head26_Giftbox
 - Unlockable_ExoSoldier.Head27_Nutcracker
@@ -1258,6 +1323,10 @@ vaultcard_purchases:
 - Unlockable_ExoSoldier.Skin47_HangingLights
 - Unlockable_ExoSoldier.Skin48_KrampusClaus
 - Unlockable_ExoSoldier.Skin49_MidCentury
+- Unlockable_ExoSoldier.Skin57_MechaRecruit
+- Unlockable_ExoSoldier.Skin58_CyberChunk
+- Unlockable_ExoSoldier.Skin59_BeastToad
+- Unlockable_ExoSoldier.Skin60_OrganicPanic
 - Unlockable_Gravitar.Head21_Reindeeer
 - Unlockable_Gravitar.Head26_Giftbox
 - Unlockable_Gravitar.Head27_Nutcracker
@@ -1266,6 +1335,10 @@ vaultcard_purchases:
 - Unlockable_Gravitar.Skin47_HangingLights
 - Unlockable_Gravitar.Skin48_KrampusClaus
 - Unlockable_Gravitar.Skin49_MidCentury
+- Unlockable_Gravitar.Skin57_MechaRecruit
+- Unlockable_Gravitar.Skin58_CyberChunk
+- Unlockable_Gravitar.Skin59_BeastToad
+- Unlockable_Gravitar.Skin60_OrganicPanic
 - Unlockable_Paladin.Head21_Reindeeer
 - Unlockable_Paladin.Head26_Giftbox
 - Unlockable_Paladin.Head27_Nutcracker
@@ -1274,13 +1347,31 @@ vaultcard_purchases:
 - Unlockable_Paladin.Skin47_HangingLights
 - Unlockable_Paladin.Skin48_KrampusClaus
 - Unlockable_Paladin.Skin49_MidCentury
+- Unlockable_Paladin.Skin57_MechaRecruit
+- Unlockable_Paladin.Skin58_CyberChunk
+- Unlockable_Paladin.Skin59_BeastToad
+- Unlockable_Paladin.Skin60_OrganicPanic
+- Unlockable_RoboDealer.Skin57_MechaRecruit
+- Unlockable_RoboDealer.Skin58_CyberChunk
+- Unlockable_RoboDealer.Skin59_BeastToad
+- Unlockable_RoboDealer.Skin60_OrganicPanic
 - Unlockable_Vehicles.Mat53_MissileToe
 - Unlockable_Vehicles.Mat54_CandyCaned
 - Unlockable_Vehicles.Mat55_ThatsWrap
 - Unlockable_Vehicles.Mat56_KrampStyle
 - Unlockable_Vehicles.Mat57_FrostyReception
+- Unlockable_Vehicles.Mat58
+- Unlockable_Vehicles.Mat59
+- Unlockable_Vehicles.Mat60
+- Unlockable_Vehicles.Mat61
+- Unlockable_Vehicles.Mat62
 - Unlockable_Weapons.Mat41_StarryNight
 - Unlockable_Weapons.Mat42_UglyXmasSweater
 - Unlockable_Weapons.Mat43_Snowfall
 - Unlockable_Weapons.Mat44_GiftWrap
 - Unlockable_Weapons.Mat45_Gingerbread
+- Unlockable_Weapons.Mat46_MechYeah
+- Unlockable_Weapons.Mat47_Assault
+- Unlockable_Weapons.Mat48_Boltron
+- Unlockable_Weapons.Mat49_Furboy
+- Unlockable_Weapons.Mat50_SpicyIguana
