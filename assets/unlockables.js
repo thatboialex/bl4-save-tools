@@ -138,10 +138,11 @@ function completeSharedCollectibles() {
   if (!data) return;
   if (!hasProfileUnlockables(data)) return;
 
-  for (const key of ['echo_log_challenges', 'sharedprogress_cello', 'sharedprogress_cowbell']) {
+  for (const key of ['echo_log_challenges', 'sharedprogress_cello']) {
     mergeUnlockableEntries(data, key);
   }
   mergeUnlockableEntries(data, 'echo_upgrade_challenges', 'echo_upgrade_challenges.collect');
+  mergeUnlockableEntries(data, 'sharedprogress_cowbell', 'SharedProgress_Cowbell.collectible');
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
@@ -182,6 +183,7 @@ function completeAllActivities() {
   if (!isProfileSave) return;
 
   mergeUnlockableEntries(data, 'echo_upgrade_challenges', 'echo_upgrade_challenges.activity');
+  mergeUnlockableEntries(data, 'sharedprogress_cowbell', 'SharedProgress_Cowbell.zoneactivity');
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);

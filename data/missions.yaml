@@ -929,18 +929,23 @@ missionset_micro_cowbell:
     mission_micro_whodidit:
       status: completed
 missionset_side_cowbell:
+  status: completed
   missions:
     mission_side_dutybeyonddeath:
+      ui_flags: 1
       status: completed
       final:
         waypoint_helper_timer_endstate: completed
     mission_side_invasive1:
+      ui_flags: 1
       status: completed
     mission_side_invasive2:
+      ui_flags: 1
       status: completed
     mission_side_invasiveinvis:
       status: completed
     mission_side_romeoandromeo:
+      ui_flags: 1
       status: completed
       final:
         og_leg_insta_complete_endstate: completed
@@ -956,8 +961,28 @@ missionset_side_cowbell:
         place_torso_endstate: completed
         place_og_arms_endstate: deactivated
     mission_side_safehaven:
+      ui_flags: 1
       status: completed
     mission_side_summoningcircle:
+      ui_flags: 1
       status: completed
     mission_side_unfinishedbusiness:
+      ui_flags: 1
+      status: completed
+    cowbell_side_miscconvos_elliemoxxi_invisible:
+      status: completed
+missionset_zoneactivity_dlc1_fuelsiphon:
+  status: completed
+  missions:
+    zoneactivity_dlc1_fuelsiphon1:
+      ui_flags: 1
+      status: completed
+    zoneactivity_dlc1_fuelsiphon2:
+      ui_flags: 1
+      status: completed
+missionset_zoneactivity_dlc1_bunker:
+  status: completed
+  missions:
+    zoneactivity_dlc1_bunker:
+      ui_flags: 1
       status: completed

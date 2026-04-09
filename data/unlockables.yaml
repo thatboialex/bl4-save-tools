@@ -438,27 +438,51 @@ sharedprogress_cello:
 sharedprogress_cowbell:
   entries:
   - SharedProgress_Cowbell.collectible_dahlcaches1
+  - SharedProgress_Cowbell.collectible_dahlcaches2
+  - SharedProgress_Cowbell.collectible_dahlcaches3
   - SharedProgress_Cowbell.collectible_dahlcaches4
+  - SharedProgress_Cowbell.collectible_dahlcaches5
+  - SharedProgress_Cowbell.collectible_echolog1
+  - SharedProgress_Cowbell.collectible_echolog10
   - SharedProgress_Cowbell.collectible_echolog11
   - SharedProgress_Cowbell.collectible_echolog12
   - SharedProgress_Cowbell.collectible_echolog13
+  - SharedProgress_Cowbell.collectible_echolog14
   - SharedProgress_Cowbell.collectible_echolog15
   - SharedProgress_Cowbell.collectible_echolog16
+  - SharedProgress_Cowbell.collectible_echolog17
   - SharedProgress_Cowbell.collectible_echolog18
   - SharedProgress_Cowbell.collectible_echolog19
+  - SharedProgress_Cowbell.collectible_echolog2
   - SharedProgress_Cowbell.collectible_echolog20
+  - SharedProgress_Cowbell.collectible_echolog21
+  - SharedProgress_Cowbell.collectible_echolog22
+  - SharedProgress_Cowbell.collectible_echolog23
+  - SharedProgress_Cowbell.collectible_echolog24
+  - SharedProgress_Cowbell.collectible_echolog25
   - SharedProgress_Cowbell.collectible_echolog26
   - SharedProgress_Cowbell.collectible_echolog27
   - SharedProgress_Cowbell.collectible_echolog28
   - SharedProgress_Cowbell.collectible_echolog3
   - SharedProgress_Cowbell.collectible_echolog4
+  - SharedProgress_Cowbell.collectible_echolog5
+  - SharedProgress_Cowbell.collectible_echolog6
+  - SharedProgress_Cowbell.collectible_echolog7
   - SharedProgress_Cowbell.collectible_echolog8
+  - SharedProgress_Cowbell.collectible_echolog9
+  - SharedProgress_Cowbell.collectible_recordplayer1
   - SharedProgress_Cowbell.collectible_recordplayer2
+  - SharedProgress_Cowbell.collectible_recordplayer3
+  - SharedProgress_Cowbell.collectible_recordplayer4
   - SharedProgress_Cowbell.collectible_recordplayer5
   - SharedProgress_Cowbell.collectible_vaultsymbols1
   - SharedProgress_Cowbell.collectible_vaultsymbols2
   - SharedProgress_Cowbell.collectible_vaultsymbols3
   - SharedProgress_Cowbell.collectible_vaultsymbols4
+  - SharedProgress_Cowbell.collectible_vaultsymbols5
+  - SharedProgress_Cowbell.zoneactivity_bunker
+  - SharedProgress_Cowbell.zoneactivity_fuelsiphon1
+  - SharedProgress_Cowbell.zoneactivity_fuelsiphon2
 unlockable_darksiren:
   entries:
   - Unlockable_DarkSiren.Body01_Prison
@@ -554,6 +578,9 @@ unlockable_darksiren:
   - Unlockable_DarkSiren.Skin61_Fullmetal
   - Unlockable_DarkSiren.Skin62_BrokenHeart
   - Unlockable_DarkSiren.Skin63_SaintPatrick
+  - Unlockable_DarkSiren.skin64_nightmare
+  - Unlockable_DarkSiren.skin65_frozen
+  - Unlockable_DarkSiren.skin66_dahlwinter
   - Unlockable_DarkSiren.Skin67_Scav
 unlockable_echo4:
   entries:
@@ -644,6 +671,7 @@ unlockable_echo4:
   - Unlockable_Echo4.Skin61_Fullmetal
   - Unlockable_Echo4.Skin62_BrokenHeart
   - Unlockable_Echo4.Skin63_SaintPatrick
+  - Unlockable_Echo4.skin64_bloody
   - Unlockable_Echo4.Skin65_Hearts
   - Unlockable_Echo4.Skin66_Dahlwinter
 unlockable_exosoldier:
@@ -741,6 +769,9 @@ unlockable_exosoldier:
   - Unlockable_ExoSoldier.Skin61_Fullmetal
   - Unlockable_ExoSoldier.Skin62_BrokenHeart
   - Unlockable_ExoSoldier.Skin63_SaintPatrick
+  - Unlockable_ExoSoldier.skin64_nightmare
+  - Unlockable_ExoSoldier.skin65_frozen
+  - Unlockable_ExoSoldier.skin66_dahlwinter
   - Unlockable_ExoSoldier.Skin67_Scav
 unlockable_gravitar:
   entries:
@@ -837,6 +868,9 @@ unlockable_gravitar:
   - Unlockable_Gravitar.Skin61_Fullmetal
   - Unlockable_Gravitar.Skin62_BrokenHeart
   - Unlockable_Gravitar.Skin63_SaintPatrick
+  - Unlockable_Gravitar.skin64_nightmare
+  - Unlockable_Gravitar.skin65_frozen
+  - Unlockable_Gravitar.skin66_dahlwinter
   - Unlockable_Gravitar.Skin67_Scav
 unlockable_hoverdrives:
   entries:
@@ -975,6 +1009,9 @@ unlockable_paladin:
   - Unlockable_Paladin.Skin61_Fullmetal
   - Unlockable_Paladin.Skin62_BrokenHeart
   - Unlockable_Paladin.Skin63_SaintPatrick
+  - Unlockable_Paladin.skin64_nightmare
+  - Unlockable_Paladin.skin65_frozen
+  - Unlockable_Paladin.skin66_dahlwinter
   - Unlockable_Paladin.Skin67_Scav
 unlockable_robodealer:
   entries:
@@ -1063,6 +1100,9 @@ unlockable_robodealer:
   - Unlockable_RoboDealer.Skin61_Fullmetal
   - Unlockable_RoboDealer.Skin62_BrokenHeart
   - Unlockable_RoboDealer.Skin63_SaintPatrick
+  - Unlockable_RoboDealer.skin64_nightmare
+  - Unlockable_RoboDealer.skin65_frozen
+  - Unlockable_RoboDealer.skin66_dahlwinter
   - Unlockable_RoboDealer.Skin67_Scav
 unlockable_vehicles:
   entries:
@@ -1133,6 +1173,8 @@ unlockable_vehicles:
   - Unlockable_Vehicles.mat61
   - Unlockable_Vehicles.mat62
   - Unlockable_Vehicles.Mat63_GlacialRacer
+  - Unlockable_Vehicles.mat64_angrymaxwell
+  - Unlockable_Vehicles.mat65_dahlsballs
   - Unlockable_Vehicles.Mat66_Exnihilo
   - Unlockable_Vehicles.Mountain
   - Unlockable_Vehicles.Paladin
@@ -1190,6 +1232,8 @@ unlockable_weapons:
   - Unlockable_Weapons.mat48_boltron
   - Unlockable_Weapons.mat49_furboy
   - Unlockable_Weapons.mat50_spicyiguana
+  - Unlockable_Weapons.mat51_gore
+  - Unlockable_Weapons.mat53_occult
   - Unlockable_Weapons.Mat54_Shipwreck
   - Unlockable_Weapons.shiny_anarchy
   - Unlockable_Weapons.shiny_asher

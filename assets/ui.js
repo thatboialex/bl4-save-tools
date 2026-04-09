@@ -13,7 +13,7 @@ let UPDATE_BANNER_ID = 'update-warning-v1';
 if (localStorage.getItem('dismissed-banner') === UPDATE_BANNER_ID) {
   document.getElementById('update-banner').style.display = 'none';
 } else {
-  document.getElementById('update-banner').style.display = 'flex';
+  //document.getElementById('update-banner').style.display = 'flex'; // no outstanding issues, so hide banner by default
 }
 function toggleUpdateBanner() {
   const banner = document.getElementById('update-banner');
@@ -85,15 +85,29 @@ const PRESETS = [
   },
   {
     handler: 'completeAllStoryMissions',
-    title: 'Skip Story Missions',
+    title: 'Complete Story Missions',
     desc: 'Completes all main story missions.',
     saveType: 'character',
     group: 'Character',
   },
   {
     handler: 'completeAllMissions',
-    title: 'Skip All Missions',
+    title: 'Complete All Missions',
     desc: 'Completes all main and side missions (including activities).',
+    saveType: 'character',
+    group: 'Character',
+  },
+  {
+    handler: 'updateAllSerialLevels',
+    title: 'Set All Items to Character Level',
+    desc: 'Updates serials for all backpack items to match current character level.',
+    saveType: 'character',
+    group: 'Character',
+  },
+  {
+    handler: 'showAddItemsPopup',
+    title: 'Add Item Serials to Backpack',
+    desc: 'Adds specified item serials to backpack.',
     saveType: 'character',
     group: 'Character',
   },
@@ -169,21 +183,19 @@ const PRESETS = [
     saveType: 'profile',
     group: 'Profile (shared)',
   },
-
-  // both
   {
     handler: 'updateAllSerialLevels',
-    title: 'Set All Items to Character Level',
-    desc: 'Updates serials for all backpack items to match current character level.',
-    saveType: 'character',
-    group: 'Both',
+    title: `Set All Bank Items to Max Level (${MAX_LEVEL})`,
+    desc: `Updates serials for all bank items to have max level (${MAX_LEVEL}).`,
+    saveType: 'profile',
+    group: 'Profile (shared)',
   },
   {
     handler: 'showAddItemsPopup',
-    title: 'Add Item Serials to Backpack',
-    desc: 'Adds specified item serials to backpack.',
-    saveType: 'character',
-    group: 'Both',
+    title: 'Add Item Serials to Bank',
+    desc: 'Adds specified item serials to bank.',
+    saveType: 'profile',
+    group: 'Profile (shared)',
   },
 ];
 
@@ -228,19 +240,6 @@ function renderPresets() {
         desc: preset.desc,
         saveType: preset.saveType,
       };
-
-      // Special-case: these presets also work in profile saves, but should be displayed differently in that case
-      if (preset.handler === 'updateAllSerialLevels' && isProfileSave) {
-        display.title = `Set All Bank Items to Max Level (${MAX_LEVEL})`;
-        display.desc = `Updates serials for all bank items to have max level (${MAX_LEVEL}).`;
-        display.saveType = 'profile';
-      }
-      if (preset.handler === 'showAddItemsPopup' && isProfileSave) {
-        display.title = `Add Item Serials to Bank`;
-        display.desc = `Adds specified item serials to bank.`;
-        display.saveType = 'profile';
-      }
-
       btn.textContent = display.title;
 
       // Determine disabled state based on computed saveType (no mutation)

@@ -19,6 +19,9 @@ function completeAllChallenges() {
   completeManufacturerChallenges();
   completeLicensedPartsChallenges();
   completePhospheneChallenges();
+  completeAllCollectibles();
+
+  completeCowbellChallenges(); // story pack 1
 }
 
 function completeUVHChallenges() {
@@ -448,6 +451,171 @@ function completePhospheneChallenges() {
   updateStatsCounters(counters, 'shinygear');
 }
 
+function completeCowbellChallenges() {
+  completeCowbellCombatChallenges();
+  completeCowbellWorldChallenges();
+}
+
+function completeCowbellCombatChallenges() {
+  const counters = {
+    combat: {
+      kraggon_secondwind: 30, // black arrow
+      dahl_nightmare_split: 100, // make us wholew
+    },
+    enemies: {
+      kill_scav_psychos: 1000, // beneath a maddened sky
+      kill_scav_guntoters: 1000, // moon goons
+      kill_scav_outlaws: 300, // i am the law
+      kill_scav_splices: 300, // socket to ya
+      kill_dahl_grunts: 1000, // duty beyond death
+      kill_dahl_mechs: 300, // flesh and circuit made one
+      kill_kraggons: 1000, // rocked to sleep
+    },
+    world_rift_boss: 10, // scourge of the other side
+    spooky_story: {
+      buyerremorse: 1,
+      lallorona1: 1,
+      lallorona2: 1,
+      lallorona3: 1,
+      lucineintro: 1,
+      lucine1: 1,
+      lucine2: 1,
+      lucine3: 1,
+      lucine4: 1,
+      lucine5: 1,
+      prettiersmile: 1,
+      voodoo: 1,
+    }, // the nighttime conglomerate
+  };
+
+  updateStatsCounters(counters, 'cowbell_challenges');
+  console.info('Completed cowbell combat challenges!');
+}
+
+function completeCowbellWorldChallenges() {
+  const counters = {
+    cowbell_activities:{
+      speakeasyportals:{
+        speakeasyportal_1: 1,
+        speakeasyportal_2: 1,
+        speakeasyportal_3: 1,
+        speakeasyportal_4: 1,
+        speakeasyportal_5: 1,
+        speakeasyportal_6: 1,
+      }, // i spy
+      achievement_activities: {
+        dahlbunkers: {
+          dahlbunker_1: 1,
+        },
+        scavsiphons: {
+          scavsiphon_1: 1,
+        },
+      },
+    },
+    cowbell_collectibles: {
+      dahlcaches: {
+        dahlcache_1: 1,
+        dahlcache_2: 1,
+        dahlcache_3: 1,
+        dahlcache_4: 1,
+        dahlcache_5: 1,
+      }, // corporate recycling subsidies
+      recordplayers:{
+        recordplayer_1: 1,
+        recordplayer_2: 1,
+        recordplayer_3: 1,
+        recordplayer_4: 1,
+        recordplayer_5: 1,
+      }, // tales from the counter
+      dlc1_vaultsymbols:{
+        dlc1_vaultsymbol_1: 1,
+        dlc1_vaultsymbol_2: 1,
+        dlc1_vaultsymbol_3: 1,
+        dlc1_vaultsymbol_4: 1,
+        dlc1_vaultsymbol_5: 1,
+      }, // the profane sigils
+      dlc1_echologs: {
+        dlc1_echolog_1: 1,
+        dlc1_echolog_2: 1,
+        dlc1_echolog_3: 1,
+        dlc1_echolog_4: 1,
+        dlc1_echolog_5: 1,
+        dlc1_echolog_6: 1,
+        dlc1_echolog_7: 1,
+        dlc1_echolog_8: 1,
+        dlc1_echolog_9: 1,
+        dlc1_echolog_10: 1,
+        dlc1_echolog_11: 1,
+        dlc1_echolog_12: 1,
+        dlc1_echolog_13: 1,
+        dlc1_echolog_14: 1,
+        dlc1_echolog_15: 1,
+        dlc1_echolog_16: 1,
+        dlc1_echolog_17: 1,
+        dlc1_echolog_18: 1,
+        dlc1_echolog_19: 1,
+        dlc1_echolog_20: 1,
+        dlc1_echolog_21: 1,
+        dlc1_echolog_26: 1,
+        dlc1_echolog_27: 1,
+        dlc1_echolog_28: 1,
+        dlc1_echologs_fishing: {
+          dlc1_echolog_22: 1,
+          dlc1_echolog_23: 1,
+          dlc1_echolog_24: 1,
+          dlc1_echolog_25: 1,
+        },
+      }, // who knows whats listening
+    },
+    cowbell_misc: {
+      speakeasysafes: {
+        speakeasysafe_1: 1,
+        speakeasysafe_2: 1,
+      },
+      clots: {
+        clot_1: 1,
+        clot_2: 1,
+        clot_3: 1,
+        clot_4: 1,
+        clot_5: 1,
+        clot_6: 1,
+        clot_7: 1,
+        clot_8: 1,
+        clot_9: 1,
+        clot_10: 1,
+        clot_11: 1,
+        clot_12: 1,
+        clot_13: 1,
+        clot_14: 1,
+        clot_15: 1,
+        clot_16: 1,
+        clot_17: 1,
+        clot_18: 1,
+        clot_19: 1,
+        clot_20: 1,
+        clot_21: 1,
+        clot_22: 1,
+        clot_23: 1,
+        clot_24: 1,
+        clot_25: 1,
+      },
+      shuggurathtanks: {
+        shuggurathtank_1: 1,
+        shuggurathtank_2: 1,
+      },
+      kickdowns: {
+        wsw_bridge_parent:{
+          wsw_bridge_left: 1,
+          wsw_bridge_right: 1,
+        },
+      },
+    },
+  };
+
+  updateStatsCounters(counters, 'cowbell_openworld');
+  console.info('Completed cowbell openworld challenges!');
+}
+
 /**
  * Sets all achievement counter values to completed.
  * Unknown how effective this is for actually unlocking achievements.
@@ -464,7 +632,7 @@ function completeAllAchievements() {
     '06_legendaries_equip': 1, // i earned this
     '07_challenges_gear': 1, // area of expertise
     '08_challenges_manufacturer': 1, // brand equity
-    // 09 "rule of everything" - complete all activities - no counter, it just checks completed activity missions
+    // 09 - "rule of everything" - complete all activities (based on completed missions)
     '10_worldevents_colosseum': 1, // arena grande
     '11_worldevents_airship': 1, // reverse abduction
     '12_worldevents_meteor': 1, // shoot the moon
@@ -480,7 +648,7 @@ function completeAllAchievements() {
       '19_vaultguardian_shatteredlands': 1,
     }, // nothing left to guard
     '20_missions_survivalist': 3, // pale blueberry dot
-    '21_missions_auger': 7, // who's the boss?
+    '21_missions_auger': 7, // whos the boss
     '22_missions_electi': 3, // mole money, mole problems
     '23_missions_claptrap': 5, // widely beloved mascot
     '24_missions_side': 98, // grassroots campaigner
@@ -519,22 +687,22 @@ function completeDiscoveryAchievements() {
 function completeDLCAchievements() {
   // bounty pack 2 (stone demon) - codename cello
   const cello = {
-    '35_cello_enemies_defeat': 50, // ordon't you glad i didn't say eridium
+    '35_cello_enemies_defeat': 50, // ordont you glad i didnt say eridium
     '36_cello_boss_defeat': {
       'pangolin': 1, // stone demon
       'phalanx': 1, // bore-tex
       'cat': 1, // chiselbella
       'splice': 1, // sturmdrang
-    }, // fist of the mountain - this may also require the mission to be complete
-    '37_cello_missions_main': 1, // the demon's domain
+    }, // fist of the mountain
+    '37_cello_missions_main': 1, // the demons domain
   };
   updateStatsCounters(cello, 'cello_achievements');
 
   // story pack 1 (vault of the damned) - codename cowbell
   const cowbell = {
-    // 38 ? - dahl cleanup crew
-    '39_cowbell_side_missions': 10, // looking for work at the top of the world
-    // 40 ? - find me in the rift
+    // 38 - "dahl cleanup crew" - complete all activities (based on completed missions)
+    '39_cowbell_side_missions': 11, // looking for work at the top of the world
+    '40_cowbell_defeat_rift_boss': 1, // find me in the rift
     '41_cowbell_complete_mission_01_polarwastes': 1, // heartwarming
     '42_cowbell_complete_mission_02_findellie': 1, // sugar wrath
     '43_cowbell_complete_mission_03_bloodstainedhollows': 1, // legally unspecified tincture

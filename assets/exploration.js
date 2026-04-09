@@ -72,7 +72,7 @@ function clearMapFog() {
  * @param {Object} data - The parsed save file data
  */
 function visitAllWorlds(data) {
-  if (isProfileSave) return;
+  if (!isProfileSave) return;
   const regionlist = [
     'KairosGeneric',
     'grasslands_Prison',

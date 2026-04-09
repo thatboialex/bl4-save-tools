@@ -7,13 +7,13 @@ and outputs both human-readable text files and compressed strings for JavaScript
 
 Examples:
     Extract locations:
-        python extract_lists.py -i ../../1.yaml -o ../data/locations.txt -c
+        python extract_lists.py -i ../../profile.yaml -o ../data/locations.txt -c
     
     Extract rewards:
         python extract_lists.py -i ../../1.yaml -o ../data/rewards.txt -c -r
     
     Extract and update blobs.js:
-        python extract_lists.py -i ../../1.yaml -o ../data/locations.txt -c \
+        python extract_lists.py -i ../../profile.yaml -o ../data/locations.txt -c \
             -b ../assets/blobs.js --blob-const LOCATIONS_COMPRESSED
 """
 
@@ -97,7 +97,7 @@ def extract_and_merge(input_yaml, output_text, compressed_output, extract_func, 
 
 
 def extract_locations_from_yaml(data):
-    dlblob = data['gbx_discovery_pg']['dlblob']
+    dlblob = data['domains']['local']['gbx_discovery_pg_shared']['dlblob']
     locations = re.split(r':\d:', dlblob)
     return [loc for loc in locations if loc]
 

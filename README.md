@@ -7,26 +7,31 @@ Web-based tool for modifying Borderlands 4 (PC) save files.
 - Decrypt `.sav` file to human-readable YAML
 - Export as re-encrypted `.sav` file or YAML
 - Manually edit save YAML within the web page
-- Apply preset modifications
-  - Remove map fog
-  - Discover all locations
-  - Unlock all safehouses
-  - Unlock all collectibles
-  - Complete all challenges
-  - Unlock all achievements
-  - Skip story missions
-  - Skip all missions
-  - Change class
+- Apply preset modifications to character saves
   - Max character level
-  - Max SDU
-  - Unlock all vault powers
-  - Unlock all hover drives
+  - Change class
+  - Complete challenges
+  - Unlock achievements
   - Unlock all specializations
   - Unlock UVHM & post-game activities
-  - Add item serials
-  - Set all items to character level (or max level for bank items)
-  - Unlock new game shortcuts - `profile.sav`
-  - Unlock all cosmetics - `profile.sav`
+  - Complete story missions
+  - Complete all missions
+  - Add item serials to backpack
+  - Set all items in backpack to character level
+- Apply preset modifications to profile saves (shared between characters)
+  - Remove map fog
+  - Discover locations
+  - Unlock fast travel
+  - Complete activities
+  - Unlock collectibles
+  - Max SDU
+  - Unlock vault powers
+  - Unlock new game shortcuts
+  - Unlock hover drives
+  - Unlock cosmetics
+  - Add item serials to bank
+  - Set all items in bank to max level
+- All DLC content through story pack 1 is included
 
 I don't plan to implement item editing beyond basic preset manipulations.
 
@@ -57,56 +62,25 @@ These run JavaScript functions which apply pre-configured edits to save files qu
 - You can apply as many presets as you want.
 - They update the YAML text you see in the editor.
 - They're intended to be modular, so you may need to run a few to get the desired effect.
-  - Example: "Unlock all collectibles" will technically just "collect" them. You'd also need to apply "Discover all locations" to have them shown on your map. 
+  - Ex. "Unlock collectibles" (character) will technically just "collect" them. You'd also need to apply "Discover locations" (profile) to have them shown on your map.
+  - Ex. "Complete challenges" (character) will only set the appropriate counters. Most rewards are granted when you pass the threshold, so you'd also need to apply "Unlock cosmetics" (profile) to obtain them.
 
 ---
-### World
-- **Remove map fog**
-  - Fully reveals the in-game map terrain by setting fog of war overlay for every map to 100% discovered. [Technical details](docs/exploration.md)
-  - Does not add PoI markers. See "Discover all locations".
-- **Discover all locations**
-  - Reveals all point of interest (PoI) markers on your map.
-  - Unlocks achievements for location discovery.
-- **Unlock all safehouses**
-  - Unlocks fast travel to all safehouses and silos by completing related mission (activities).
-  - Re-calculates SDU points, applying the new total if it's higher.
-  - Unlocks safehouse, silo, and town PoI markers.
-- **Unlock all collectibles**
-  - Marks all* collectibles as found. ECHO logs, capsules, etc. (bobble heads aren't included)
-  - Re-calculates SDU points, applying the new total if it's higher.
-  - Does not add PoI markers. See "Discover all locations".
-- **Complete all challenges**
-  - Completes all counter-based challenges.
-  - Does not complete activities or collectibles challenges. See "Skip all missions" and "Unlock all collectibles".
-  - Does not grant rewards for completion. [More info](docs/challenges.md)
-  - Unlocks some achievements. (UVH 5 & world events confirmed)
-- **Complete all achievements**
-  - Also completes all activities.
-  - Triggers platform achievements (Steam/Epic).
-- **Skip story missions**
-  - Completes all missions related to the main story. Doesn't modify any other missions.
-  - Functionally equivalent to starting a new save with the in-game story skip option. (Does not unlock that option)
-  - Enables the specialization system.
-- **Skip all missions**
-  - Completes all missions including the main story, vaults, and activities like drill sites.
-  - Enables the specialization system.
-  - Re-calculates SDU points, applying the new total if it's higher.
-
 ### Character
+- **Max character level**
+  - Sets character level to the maximum.
+  - Sets expected skill points & XP.
 - **Change class**
   - Changes the character class.
   - Refunds skill points.
-- **Max level (60)**
-  - Sets character level to the maximum.
-  - Sets expected skill points & XP.
-- **Max SDU**
-  - Purchases all SDU upgrades, adding points if necessary.
-- **Unlock all vault powers**
-  - Unlocks all vault poweres normally granted by completing vaults.
-  - Included in "Unlock all collectibles".
-- **Unlock all hover drives**
-  - Unlocks all hover drive tiers and manufacturers.
-  - Does not complete the associated kill count challenges. See "Complete all challenges".
+- **Complete challenges**
+  - Completes all counter-based challenges.
+  - Does not complete activities or collectibles challenges. See "Complete all missions" and "Unlock collectibles".
+  - Does not grant rewards for completion. [More info](docs/challenges.md)
+  - Unlocks some achievements. (UVH 5 & world events confirmed)
+- **Unlock achievements**
+  - Also completes all activities (which are required for a few achievements).
+  - Triggers platform achievements (Steam/Epic).
 - **Unlock all specializations**
   - Unlocks the specialization system. [More info](docs/unlockables.md)
   - Sets maximum level and fully completes all trees.
@@ -116,22 +90,50 @@ These run JavaScript functions which apply pre-configured edits to save files qu
   - Doesn't complete any other missions, so you could theoretically play the story from level 1 in UVHM difficulty which isn't otherwise possible.
   - Loading a save with this & story completion will enable starting at level 30 (flag is automatically added to `profile.sav`).
   - Completes all UVH challenges.
-
-### Misc
-- **Apply all presets**
-  - Applies all character presets - does not include the below "profile" presets which use a different save file.
-  - Grants maximum money & eridium.
-- **Add item serials to backpack/bank**
-  - Adds a user-provided list of serials into a character or profile save.
-- **Set all backpack items to character level**
+- **Complete story missions**
+  - Completes all missions related to the main story. Doesn't modify any other missions.
+  - Functionally equivalent to starting a new save with the in-game story skip option. (Does not unlock that option)
+  - Enables the specialization system.
+- **Complete all missions**
+  - Completes all missions including the main story, vaults, and activities like drill sites.
+  - Enables the specialization system.
+  - Re-calculates SDU points, applying the new total if it's higher.
+- **Add item serials to backpack**
+  - Adds a user-provided list of serials into a character save (backpack).
+- **Set all items in backpack to character level**
   - Updates all item serials in character inventory to match the level of the character.
-- **Set all bank items to max level**  `profile.sav`
-  - Updates all item serials in bank to have max level (60).
-- **Unlock new game shortcuts**  `profile.sav`
+
+### Profile
+- **Remove map fog**
+  - Fully reveals the in-game map terrain by setting fog of war overlay for every map to 100% discovered. [Technical details](docs/exploration.md)
+  - Does not add PoI markers. See "Discover locations".
+- **Discover locations**
+  - Reveals all point of interest (PoI) markers on your map.
+  - May trigger achievement for location discovery.
+- **Unlock fast travel**
+  - Unlocks fast travel to all safehouses and silos by completing related mission (activities).
+  - Re-calculates SDU points, applying the new total if it's higher.
+  - Unlocks safehouse, silo, and town PoI markers.
+- **Unlock collectibles**
+  - Marks all* collectibles as found. ECHO logs, capsules, etc. (bobble heads aren't included)
+  - Re-calculates SDU points, applying the new total if it's higher.
+  - Does not add PoI markers. See "Discover locations".
+- **Max SDU**
+  - Purchases all SDU upgrades, adding points if necessary.
+- **Unlock vault powers**
+  - Unlocks all vault powers normally granted by completing vaults.
+- **Unlock new game shortcuts**
   - Enables starting new characters at level 30 with story already complete.
   - Enables the specialization system.
-- **Unlock all cosmetics**  `profile.sav`
+- **Unlock hover drives**
+  - Unlocks all hover drive tiers and manufacturers.
+  - Does not complete the associated kill count challenges. See "Complete challenges".
+- **Unlock cosmetics**
   - Unlocks all cosmetic items, making them available to all characters.
+- **Add item serials to bank**
+  - Adds a user-provided list of serials into a profile save (bank).
+- **Set all items in bank to max level**
+  - Updates all item serials in bank to have max level (60).
 
 ## Where Are My Saves?
 **Windows:**
