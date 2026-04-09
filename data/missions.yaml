@@ -865,6 +865,18 @@ missionset_dlc_raid1:
         bc2_endstate: completed
         bc1_endstate: completed
         gotoarena_endstate: completed
+missionset_dlc_cello:
+  status: completed
+  missions:
+    mission_dlc_cello:
+      ui_flags: 1
+      status: completed
+missionset_dlc_cello_pearl_gear_gen:
+  status: completed
+  missions:
+    mission_cello_pearl_gear_gen:
+      ui_flags: 1
+      status: completed
 missionset_main_cowbell_unlock:
   status: completed
   missions:

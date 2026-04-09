@@ -521,12 +521,11 @@ function completeDLCAchievements() {
   const cello = {
     '35_cello_enemies_defeat': 50, // ordon't you glad i didn't say eridium
     '36_cello_boss_defeat': {
-      'pangolin': 1,
-      'phalanx': 1,
-      'cat': 1,
-      'splice': 1,
-      // ?
-    }, // fist of the mountain
+      'pangolin': 1, // stone demon
+      'phalanx': 1, // bore-tex
+      'cat': 1, // chiselbella
+      'splice': 1, // sturmdrang
+    }, // fist of the mountain - this may also require the mission to be complete
     '37_cello_missions_main': 1, // the demon's domain
   };
   updateStatsCounters(cello, 'cello_achievements');
