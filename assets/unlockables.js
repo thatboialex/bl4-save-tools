@@ -27,12 +27,14 @@ function hasProfileUnlockables(data) {
  * Merges entries from UNLOCKABLES[key] into data.domains.local.unlockables[key].entries,
  * deduplicating and sorting the result.
  */
-function mergeUnlockableEntries(data, key) {
+function mergeUnlockableEntries(data, key, prefix = '') {
   data.domains.local.unlockables[key] = data.domains.local.unlockables[key] || {};
   const existing = data.domains.local.unlockables[key].entries || [];
   const merged = new Set(existing);
   for (const entry of UNLOCKABLES[key].entries) {
-    merged.add(entry);
+    if (entry.startsWith(prefix)) {
+      merged.add(entry);
+    }
   }
   data.domains.local.unlockables[key].entries = Array.from(merged).sort((a, b) =>
     a.toLowerCase().localeCompare(b.toLowerCase())
@@ -136,9 +138,10 @@ function completeSharedCollectibles() {
   if (!data) return;
   if (!hasProfileUnlockables(data)) return;
 
-  for (const key of ['echo_upgrade_challenges', 'echo_log_challenges', 'sharedprogress_cello', 'sharedprogress_cowbell']) {
+  for (const key of ['echo_log_challenges', 'sharedprogress_cello', 'sharedprogress_cowbell']) {
     mergeUnlockableEntries(data, key);
   }
+  mergeUnlockableEntries(data, 'echo_upgrade_challenges', 'echo_upgrade_challenges.collect');
 
   const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
   editor.setValue(newYaml);
@@ -161,3 +164,25 @@ function completeSharedVaultUnlocks() {
   console.info('All vault unlocks completed!');
 }
 
+function unlockFastTravel() {
+  const data = getYamlDataFromEditor();
+  if (!data) return;
+  if (!isProfileSave) return;
+
+  mergeUnlockableEntries(data, 'echo_upgrade_challenges', 'echo_upgrade_challenges.activity_safehouses');
+  mergeUnlockableEntries(data, 'echo_upgrade_challenges', 'echo_upgrade_challenges.activity_silos');
+
+  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
+  editor.setValue(newYaml);
+}
+
+function completeAllActivities() {
+  const data = getYamlDataFromEditor();
+  if (!data) return;
+  if (!isProfileSave) return;
+
+  mergeUnlockableEntries(data, 'echo_upgrade_challenges', 'echo_upgrade_challenges.activity');
+
+  const newYaml = jsyaml.dump(data, { lineWidth: -1, noRefs: true });
+  editor.setValue(newYaml);
+}
