@@ -1037,6 +1037,7 @@ unlockable_robodealer:
   - Unlockable_RoboDealer.Head18_Pumpkin
   - Unlockable_RoboDealer.Head21_Reindeer
   - Unlockable_RoboDealer.Head23_Crashtestdummy
+  - Unlockable_RoboDealer.Head24_Gnarbarian
   - Unlockable_RoboDealer.Head25_Robofeathers
   - Unlockable_RoboDealer.head26_giftbox
   - Unlockable_RoboDealer.head27_nutcracker
@@ -1067,16 +1068,20 @@ unlockable_robodealer:
   - Unlockable_RoboDealer.Skin19_Dirty
   - Unlockable_RoboDealer.Skin20_Highroller
   - Unlockable_RoboDealer.Skin21_Graffiti
+  - Unlockable_RoboDealer.Skin22_Knitted
+  - Unlockable_RoboDealer.Skin23_GearboxDev
   - Unlockable_RoboDealer.Skin24_PreOrder
   - Unlockable_RoboDealer.Skin25_Slimed
   - Unlockable_RoboDealer.Skin26_Camo
   - Unlockable_RoboDealer.Skin27_Space
+  - Unlockable_RoboDealer.Skin28_Ritual
   - Unlockable_RoboDealer.Skin29_Guardian
   - Unlockable_RoboDealer.skin30_cute
   - Unlockable_RoboDealer.Skin31_Koto
   - Unlockable_RoboDealer.Skin32_DuctTaped
   - Unlockable_RoboDealer.Skin33_Jakobs
   - Unlockable_RoboDealer.Skin34_Daedalus
+  - Unlockable_RoboDealer.Skin35_Vladof
   - Unlockable_RoboDealer.Skin36_Torgue
   - Unlockable_RoboDealer.Skin37_Maliwan
   - Unlockable_RoboDealer.Skin38_Cyberpop
@@ -1088,6 +1093,7 @@ unlockable_robodealer:
   - Unlockable_RoboDealer.skin47_hanginglights
   - Unlockable_RoboDealer.skin48_krampusclaus
   - Unlockable_RoboDealer.skin49_midcentury
+  - Unlockable_RoboDealer.Skin51_LoreUnique
   - Unlockable_RoboDealer.Skin52_Altas
   - Unlockable_RoboDealer.Skin53_Hyperion
   - Unlockable_RoboDealer.Skin54_NightSky
@@ -1233,9 +1239,11 @@ unlockable_weapons:
   - Unlockable_Weapons.mat49_furboy
   - Unlockable_Weapons.mat50_spicyiguana
   - Unlockable_Weapons.mat51_gore
+  - Unlockable_Weapons.Mat52_Ghostly
   - Unlockable_Weapons.mat53_occult
   - Unlockable_Weapons.Mat54_Shipwreck
   - Unlockable_Weapons.shiny_anarchy
+  - Unlockable_Weapons.Shiny_arctic
   - Unlockable_Weapons.shiny_asher
   - Unlockable_Weapons.shiny_atlien
   - Unlockable_Weapons.shiny_ballista
@@ -1245,6 +1253,7 @@ unlockable_weapons:
   - Unlockable_Weapons.shiny_bonnieclyde
   - Unlockable_Weapons.shiny_boomslang
   - Unlockable_Weapons.shiny_breadth
+  - Unlockable_Weapons.Shiny_bubbles
   - Unlockable_Weapons.shiny_bugbear
   - Unlockable_Weapons.shiny_bully
   - Unlockable_Weapons.shiny_chuck
@@ -1253,11 +1262,19 @@ unlockable_weapons:
   - Unlockable_Weapons.shiny_complex_root
   - Unlockable_Weapons.shiny_conglomerate
   - Unlockable_Weapons.shiny_convergence
+  - Unlockable_Weapons.Shiny_CrazedEarl
   - Unlockable_Weapons.shiny_crowdsourced
+  - Unlockable_Weapons.Shiny_Demo
   - Unlockable_Weapons.shiny_dividedfocus
+  - Unlockable_Weapons.Shiny_Doeshot
   - Unlockable_Weapons.shiny_dualdamage
+  - Unlockable_Weapons.Shiny_falke
+  - Unlockable_Weapons.Shiny_fearstalker
   - Unlockable_Weapons.shiny_finnty
   - Unlockable_Weapons.shiny_fisheye
+  - Unlockable_Weapons.Shiny_flashcyclone
+  - Unlockable_Weapons.Shiny_Fleabag
+  - Unlockable_Weapons.Shiny_follower
   - Unlockable_Weapons.shiny_gmr
   - Unlockable_Weapons.shiny_goalkeeper
   - Unlockable_Weapons.shiny_goldengod
@@ -1266,11 +1283,15 @@ unlockable_weapons:
   - Unlockable_Weapons.shiny_heavyturret
   - Unlockable_Weapons.shiny_hellfire
   - Unlockable_Weapons.shiny_hellwalker
+  - Unlockable_Weapons.Shiny_hemorrhage
+  - Unlockable_Weapons.Shiny_Inscriber
   - Unlockable_Weapons.shiny_kaleidosplode
   - Unlockable_Weapons.shiny_kaoson
   - Unlockable_Weapons.shiny_katagawa
   - Unlockable_Weapons.shiny_kickballer
   - Unlockable_Weapons.shiny_kingsgambit
+  - Unlockable_Weapons.Shiny_lasercutter
+  - Unlockable_Weapons.Shiny_laserdisc
   - Unlockable_Weapons.shiny_leadballoon
   - Unlockable_Weapons.shiny_linebacker
   - Unlockable_Weapons.shiny_loarmaster
@@ -1278,6 +1299,10 @@ unlockable_weapons:
   - Unlockable_Weapons.shiny_lumberjack
   - Unlockable_Weapons.shiny_luty
   - Unlockable_Weapons.shiny_mantra
+  - Unlockable_Weapons.Shiny_mercredi
+  - Unlockable_Weapons.Shiny_mercury
+  - Unlockable_Weapons.Shiny_misslaser
+  - Unlockable_Weapons.Shiny_murder
   - Unlockable_Weapons.shiny_noisycricket
   - Unlockable_Weapons.shiny_ohmigot
   - Unlockable_Weapons.shiny_om
@@ -1295,21 +1320,29 @@ unlockable_weapons:
   - Unlockable_Weapons.shiny_roach
   - Unlockable_Weapons.shiny_rocketreload
   - Unlockable_Weapons.shiny_roil
+  - Unlockable_Weapons.Shiny_Roulette
   - Unlockable_Weapons.shiny_rowan
+  - Unlockable_Weapons.Shiny_rowdy
   - Unlockable_Weapons.shiny_rubysgrasp
+  - Unlockable_Weapons.Shiny_scootshoot
   - Unlockable_Weapons.shiny_seamstress
   - Unlockable_Weapons.shiny_seventh_sense
   - Unlockable_Weapons.shiny_shalashaska
   - Unlockable_Weapons.shiny_sideshow
   - Unlockable_Weapons.shiny_slugger
+  - Unlockable_Weapons.Shiny_songbird
+  - Unlockable_Weapons.Shiny_soulsurvivor
   - Unlockable_Weapons.shiny_star_helix
   - Unlockable_Weapons.shiny_stopgap
   - Unlockable_Weapons.shiny_stray
+  - Unlockable_Weapons.Shiny_sunspot
   - Unlockable_Weapons.shiny_sweet_embrace
   - Unlockable_Weapons.shiny_symmetry
+  - Unlockable_Weapons.Shiny_tankbuster
   - Unlockable_Weapons.shiny_tkswave
   - Unlockable_Weapons.shiny_truck
   - Unlockable_Weapons.Shiny_Ultimate
+  - Unlockable_Weapons.Shiny_Unstable
   - Unlockable_Weapons.shiny_vamoose
   - Unlockable_Weapons.shiny_wf
   - Unlockable_Weapons.shiny_wombocombo
