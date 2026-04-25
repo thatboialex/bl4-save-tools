@@ -126,7 +126,7 @@ function tryInflate(data, userID) {
     return offsets;
   })();
 
-  const trimOptions = userID ? [4, 8] : [0, 4, 8];
+  const trimOptions = [0, 4, 8];
 
   for (let start of starts) {
     for (let trim of trimOptions) {
@@ -161,9 +161,31 @@ function decryptSav(fileArrayBuffer, normalize = true) {
 
   if (userID) {
     localStorage.setItem('bl4_previous_userid', userID);
-    let pt = aesEcbDecrypt(ciph, deriveKey(userID));
-    pt = pkcs7Unpad(pt);
-    inflated = tryInflate(pt, userID);
+
+    // Build a list of candidate keys to try.
+    // PC saves use the numeric ID as 8-byte LE integer; PS5 may encode differently.
+    const keys = [deriveKey(userID)];
+    // If the ID is all digits, also try it as a UTF-16LE string (Epic-style encoding)
+    if (/^\d+$/.test(userID)) {
+      const altKey = (() => {
+        const BASE_KEY = [
+          0x35, 0xec, 0x33, 0x77, 0xf3, 0x5d, 0xb0, 0xea, 0xbe, 0x6b, 0x83, 0x11, 0x54, 0x03, 0xeb, 0xfb,
+          0x27, 0x25, 0x64, 0x2e, 0xd5, 0x49, 0x06, 0x29, 0x05, 0x78, 0xbd, 0x60, 0xba, 0x4a, 0xa7, 0x87,
+        ];
+        const k = BASE_KEY.slice();
+        const uid_bytes = utf16leBytes(userID);
+        for (let i = 0; i < Math.min(k.length, uid_bytes.length); i++) k[i] ^= uid_bytes[i];
+        return k;
+      })();
+      keys.push(altKey);
+    }
+
+    for (const key of keys) {
+      let pt = aesEcbDecrypt(ciph, key);
+      pt = pkcs7Unpad(pt);
+      inflated = tryInflate(pt, userID);
+      if (inflated) break;
+    }
   } else {
     // No user ID: try zlib directly (works if AES layer is already removed)
     inflated = tryInflate(ciph, null);
