@@ -319,6 +319,7 @@ async function importFile() {
   const ext = file.name.split('.').pop().toLowerCase();
   if (ext == 'yaml' || ext == 'yml') {
     console.info('Loading YAML file directly into editor');
+    importedAsBase64 = false; // YAML imports are never Base64-wrapped
     yamlText = normalizeYaml(arrayBuffer);
   } else {
     yamlText = decryptSav(arrayBuffer);
