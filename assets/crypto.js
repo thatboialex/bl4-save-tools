@@ -7,11 +7,6 @@
  * - Checksum validation
  */
 
-/**
- * Converts a string to UTF-16 little-endian byte array.
- * @param {string} str - The input string to convert
- * @returns {number[]} Array of bytes representing the string in UTF-16LE
- */
 function utf16leBytes(str) {
   const bytes = [];
   for (let i = 0; i < str.length; i++) {
@@ -21,12 +16,6 @@ function utf16leBytes(str) {
   return bytes;
 }
 
-/**
- * Derives an encryption key from the user's platform ID.
- * Supports Steam IDs (17+ digit numbers) and Epic/PSN IDs (strings).
- * @param {string} userID - The user's Steam ID, Epic ID, or PSN Account ID
- * @returns {number[]} 32-byte encryption key
- */
 function deriveKey(userID) {
   const BASE_KEY = [
     0x35, 0xec, 0x33, 0x77, 0xf3, 0x5d, 0xb0, 0xea, 0xbe, 0x6b, 0x83, 0x11, 0x54, 0x03, 0xeb, 0xfb,
@@ -54,11 +43,6 @@ function deriveKey(userID) {
   return k;
 }
 
-/**
- * Removes PKCS7 padding from a buffer.
- * @param {Uint8Array} buf - The padded buffer
- * @returns {Uint8Array} The unpadded buffer
- */
 function pkcs7Unpad(buf) {
   const pad = buf[buf.length - 1];
   for (let i = 1; i <= pad; i++) {
@@ -79,9 +63,7 @@ function pkcs7Pad(buf, blockSize = 16) {
 }
 
 function uint8ArrayToWordArray(u8arr) {
-  var words = [],
-    i = 0,
-    len = u8arr.length;
+  var words = [], i = 0, len = u8arr.length;
   for (; i < len; i += 4) {
     words.push((u8arr[i] << 24) | (u8arr[i + 1] << 16) | (u8arr[i + 2] << 8) | u8arr[i + 3]);
   }
@@ -89,12 +71,12 @@ function uint8ArrayToWordArray(u8arr) {
 }
 
 /**
- * Detects whether a Uint8Array is Base64-encoded text.
- * Returns the decoded binary Uint8Array if it is, or null otherwise.
+ * If the bytes look like Base64 text, decodes and returns the binary.
+ * Returns null if the data is not Base64.
  */
 function tryBase64Decode(bytes) {
   const text = new TextDecoder('ascii', { fatal: false }).decode(bytes).trim();
-  if (!/^[A-Za-z0-9+/\r\n]+=*$/.test(text)) return null;
+  if (!/^[A-Za-z0-9+\/\r\n]+=*$/.test(text)) return null;
   try {
     const binary = atob(text.replace(/\s/g, ''));
     const out = new Uint8Array(binary.length);
@@ -128,9 +110,9 @@ function aesEcbDecrypt(cipherBytes, keyBytes) {
 }
 
 /**
- * Attempts zlib inflate, trying multiple start offsets and footer trims.
- * When userID is provided, only tries offset 0 with trims [4, 8] (PC format).
- * Without userID, scans for zlib magic byte and tries trims [0, 4, 8].
+ * Tries to zlib-inflate data, trying multiple start offsets and footer trims.
+ * With a userID only tries offset 0 and trims [4, 8] (PC format).
+ * Without a userID scans for the zlib magic byte and tries trims [0, 4, 8].
  */
 function tryInflate(data, userID) {
   const VALID_ZLIB_SECOND = new Set([0x01, 0x5e, 0x9c, 0xda]);
@@ -160,19 +142,14 @@ function tryInflate(data, userID) {
   return null;
 }
 
-// Tracks whether the imported file was Base64-encoded so export can mirror the format.
+// Set to true when the imported file was Base64-encoded, so export mirrors that format.
 let importedAsBase64 = false;
 
-/**
- * Decrypts a .sav file and converts it to YAML.
- * Handles PC saves (AES-ECB + zlib), PS5 saves (Base64 + AES-ECB + zlib),
- * and pre-decrypted saves (zlib only or plain YAML).
- */
 function decryptSav(fileArrayBuffer, normalize = true) {
   const userID = document.getElementById('userIdInput').value.trim();
   let ciph = new Uint8Array(fileArrayBuffer);
 
-  // Strip Base64 wrapper if present (PS5 decryption tools output Base64-encoded saves)
+  // Strip Base64 wrapper if present (PS5 tools often output Base64-encoded saves)
   const b64decoded = tryBase64Decode(ciph);
   importedAsBase64 = b64decoded !== null;
   if (importedAsBase64) {
@@ -191,48 +168,15 @@ function decryptSav(fileArrayBuffer, normalize = true) {
     // No user ID: try zlib directly (works if AES layer is already removed)
     inflated = tryInflate(ciph, null);
 
-  // Try zlib inflate. PC saves have 8 bytes of footer (adler32 + uncompressed length).
-  // Pre-decrypted saves may have a variable-length header before the zlib stream
-  // and 0, 4, or 8 bytes of footer after it.
-  let inflated = null;
-  let trimUsed = null;
-
-  // Find all candidate zlib stream start offsets (0x78 followed by a valid CMF flag byte)
-  const VALID_ZLIB_SECOND = new Set([0x01, 0x5e, 0x9c, 0xda]);
-  const starts = userID ? [0] : (() => {
-    const offsets = [];
-    const scanLimit = Math.min(pt.length - 1, 256);
-    for (let i = 0; i < scanLimit; i++) {
-      if (pt[i] === 0x78 && VALID_ZLIB_SECOND.has(pt[i + 1])) offsets.push(i);
-    }
-    if (offsets.length === 0) offsets.push(0); // fallback: try from offset 0 anyway
-    return offsets;
-  })();
-
-  const trimOptions = userID ? [4, 8] : [0, 4, 8];
-
-  outer: for (let start of starts) {
-    for (let trim of trimOptions) {
+    // Last resort: try decoding raw bytes as plain UTF-8 YAML
+    if (!inflated) {
       try {
-        const slice = pt.slice(start, trim === 0 ? undefined : pt.length - trim);
-        if (slice[0] !== 0x78) continue;
-        inflated = pako.inflate(slice);
-        trimUsed = trim;
-        break outer;
+        const text = new TextDecoder('utf-8', { fatal: true }).decode(ciph);
+        if (normalize) return normalizeYaml(new TextEncoder().encode(text));
+        return text;
       } catch (e) {
-        // Try next combination
+        // Not valid UTF-8
       }
-    }
-  }
-
-  // Last resort when no user ID: try interpreting the raw bytes as plain UTF-8 YAML
-  if (!inflated && !userID) {
-    try {
-      const text = new TextDecoder('utf-8', { fatal: true }).decode(pt);
-      if (normalize) return normalizeYaml(new TextEncoder().encode(text));
-      return text;
-    } catch (e) {
-      // Not valid UTF-8
     }
   }
 
@@ -251,13 +195,11 @@ function decryptSav(fileArrayBuffer, normalize = true) {
   }
 
   console.debug('Successfully decompressed save');
-  if (normalize) {
-    return normalizeYaml(inflated);
-  }
+  if (normalize) return normalizeYaml(inflated);
   return new TextDecoder().decode(inflated);
 }
 
-// Encrypt (or re-pack) YAML to .sav
+// Encrypt (or re-pack) YAML back to .sav
 function encryptSav() {
   const file = document.getElementById('fileInput').files[0];
   const userID = document.getElementById('userIdInput').value.trim();
@@ -272,13 +214,10 @@ function encryptSav() {
 
   const yamlBytes = new TextEncoder().encode(editor.getValue());
 
-  // Compress zlib
   const comp = pako.deflate(yamlBytes, { level: 9 });
 
-  // Compute adler32
   function adler32(buf) {
-    let a = 1,
-      b = 0;
+    let a = 1, b = 0;
     for (let i = 0; i < buf.length; i++) {
       a = (a + buf[i]) % 65521;
       b = (b + a) % 65521;
@@ -288,7 +227,6 @@ function encryptSav() {
   const adler = adler32(yamlBytes);
   const uncompressedLen = yamlBytes.length;
 
-  // Append adler32 and uncompressed length (both little-endian, 4 bytes each)
   const packed = new Uint8Array(comp.length + 8);
   packed.set(comp, 0);
   packed[comp.length + 0] = adler & 0xff;
@@ -307,11 +245,9 @@ function encryptSav() {
   let outBytes;
 
   if (userID) {
-    // PC / PS5: PKCS7 pad then AES-ECB encrypt
     const pt_padded = pkcs7Pad(packed);
     const keyBytes = deriveKey(userID);
     const keyWordArray = uint8ArrayToWordArray(new Uint8Array(keyBytes));
-
     const ptWordArray = CryptoJS.lib.WordArray.create(pt_padded);
     const encrypted = CryptoJS.AES.encrypt(ptWordArray, keyWordArray, {
       mode: CryptoJS.mode.ECB,
@@ -330,11 +266,10 @@ function encryptSav() {
       );
     }
   } else {
-    // No user ID: output without AES encryption (pre-decrypted format)
     outBytes = packed;
   }
 
-  // If the original file was Base64-encoded, re-encode the output to match
+  // Re-encode as Base64 if the original file was Base64-encoded
   let blobData;
   if (importedAsBase64) {
     let binary = '';
