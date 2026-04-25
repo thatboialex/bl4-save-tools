@@ -324,6 +324,7 @@ async function importFile() {
   } else {
     yamlText = decryptSav(arrayBuffer);
   }
+  if (!yamlText) return; // decryptSav or normalizeYaml returned undefined (already showed an alert)
   editor.setValue(yamlText);
   clearPresetApplied();
   enableSections();
@@ -394,13 +395,19 @@ window.addEventListener('DOMContentLoaded', function () {
   renderPresets();
 });
 
-// Clear editor when selecting a new file, then auto-import
+// Clear editor when selecting a new file.
+// Auto-import only if an account ID is already filled in (avoids showing an error
+// alert the moment a file is selected before the user has entered their ID).
 document.getElementById('fileInput').addEventListener('change', async function () {
   if (editor) editor.setValue('');
-  try {
-    await importFile();
-  } catch (e) {
-    console.error('opportunistic import failed:', e);
+  const userId = document.getElementById('userIdInput')?.value?.trim();
+  const ext = document.getElementById('fileInput').files[0]?.name.split('.').pop().toLowerCase();
+  if (userId || ext === 'yaml' || ext === 'yml') {
+    try {
+      await importFile();
+    } catch (e) {
+      console.error('opportunistic import failed:', e);
+    }
   }
 });
 
