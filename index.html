@@ -40,15 +40,17 @@
             <label>Select .sav or .yaml file: <input type="file" id="fileInput" /></label>
             <label>
               <span class="tooltip">
-                Steam/Epic user ID (PC only):
+                Account ID:
                 <span class="tooltiptext">
-                  Required for encrypted PC saves.<br />
-                  Leave blank for pre-decrypted saves (e.g. PS5).<br />
-                  Steam ID is 17 digits.<br />
-                  Epic ID is 32 characters.
+                  Required to decrypt saves.<br />
+                  <strong>Steam</strong>: 17-digit ID.<br />
+                  <strong>Epic</strong>: 32-character ID.<br />
+                  <strong>PS5</strong>: 19-digit PSN Account ID<br />
+                  (not your username — find it in<br />
+                  PS5 Settings → Account Management).
                 </span>
               </span>
-              <input type="text" id="userIdInput" placeholder="Leave blank for PS5 / pre-decrypted saves" />
+              <input type="text" id="userIdInput" placeholder="Steam / Epic / PSN Account ID" />
             </label>
             <button onclick="importFile()">Import</button>
           </div>
