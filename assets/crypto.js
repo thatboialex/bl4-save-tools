@@ -133,21 +133,48 @@ function decryptSav(fileArrayBuffer, normalize = true) {
     pt = ciph;
   }
 
-  // Try zlib inflate with different trims.
-  // PC saves have 8 bytes of footer (adler32 + uncompressed length).
-  // Pre-decrypted saves may have 0, 4, or 8 bytes of footer.
-  const trimOptions = userID ? [4, 8] : [0, 4, 8];
+  // Try zlib inflate. PC saves have 8 bytes of footer (adler32 + uncompressed length).
+  // Pre-decrypted saves may have a variable-length header before the zlib stream
+  // and 0, 4, or 8 bytes of footer after it.
   let inflated = null;
   let trimUsed = null;
-  for (let trim of trimOptions) {
+
+  // Find all candidate zlib stream start offsets (0x78 followed by a valid CMF flag byte)
+  const VALID_ZLIB_SECOND = new Set([0x01, 0x5e, 0x9c, 0xda]);
+  const starts = userID ? [0] : (() => {
+    const offsets = [];
+    const scanLimit = Math.min(pt.length - 1, 256);
+    for (let i = 0; i < scanLimit; i++) {
+      if (pt[i] === 0x78 && VALID_ZLIB_SECOND.has(pt[i + 1])) offsets.push(i);
+    }
+    if (offsets.length === 0) offsets.push(0); // fallback: try from offset 0 anyway
+    return offsets;
+  })();
+
+  const trimOptions = userID ? [4, 8] : [0, 4, 8];
+
+  outer: for (let start of starts) {
+    for (let trim of trimOptions) {
+      try {
+        const slice = pt.slice(start, trim === 0 ? undefined : pt.length - trim);
+        if (slice[0] !== 0x78) continue;
+        inflated = pako.inflate(slice);
+        trimUsed = trim;
+        break outer;
+      } catch (e) {
+        // Try next combination
+      }
+    }
+  }
+
+  // Last resort when no user ID: try interpreting the raw bytes as plain UTF-8 YAML
+  if (!inflated && !userID) {
     try {
-      let candidate = trim === 0 ? pt : pt.slice(0, pt.length - trim);
-      if (candidate[0] !== 0x78) continue; // zlib magic byte check
-      inflated = pako.inflate(candidate);
-      trimUsed = trim;
-      break;
+      const text = new TextDecoder('utf-8', { fatal: true }).decode(pt);
+      if (normalize) return normalizeYaml(new TextEncoder().encode(text));
+      return text;
     } catch (e) {
-      // Try next trim value
+      // Not valid UTF-8
     }
   }
 
