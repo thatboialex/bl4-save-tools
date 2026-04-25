@@ -393,16 +393,13 @@ window.addEventListener('DOMContentLoaded', function () {
   renderPresets();
 });
 
-// Clear editor when selecting a new file, and try to import if userIdInput is set
+// Clear editor when selecting a new file, then auto-import
 document.getElementById('fileInput').addEventListener('change', async function () {
   if (editor) editor.setValue('');
-  const userId = document.getElementById('userIdInput')?.value;
-  if (userId) {
-    try {
-      await importFile();
-    } catch (e) {
-      console.error('opportunistic import failed:', e);
-    }
+  try {
+    await importFile();
+  } catch (e) {
+    console.error('opportunistic import failed:', e);
   }
 });
 

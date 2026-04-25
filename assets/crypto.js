@@ -99,49 +99,50 @@ function uint8ArrayToWordArray(u8arr) {
  */
 function decryptSav(fileArrayBuffer, normalize = true) {
   const userID = document.getElementById('userIdInput').value.trim();
-  if (!userID) {
-    alert('Please enter platform user ID (Steam or Epic).');
-    return;
-  }
-  localStorage.setItem('bl4_previous_userid', userID);
   const ciph = new Uint8Array(fileArrayBuffer);
 
-  const keyBytes = deriveKey(userID);
-  const keyWordArray = uint8ArrayToWordArray(new Uint8Array(keyBytes));
+  let pt;
 
-  const ciphWordArray = uint8ArrayToWordArray(ciph);
-  const decrypted = CryptoJS.AES.decrypt({ ciphertext: ciphWordArray }, keyWordArray, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.NoPadding,
-  });
-  let pt = new Uint8Array(decrypted.words.length * 4);
-  for (let i = 0; i < decrypted.words.length; i++) {
-    pt.set(
-      [
-        (decrypted.words[i] >> 24) & 0xff,
-        (decrypted.words[i] >> 16) & 0xff,
-        (decrypted.words[i] >> 8) & 0xff,
-        decrypted.words[i] & 0xff,
-      ],
-      i * 4
-    );
+  if (userID) {
+    // PC save: AES-ECB decrypt with derived key
+    localStorage.setItem('bl4_previous_userid', userID);
+    const keyBytes = deriveKey(userID);
+    const keyWordArray = uint8ArrayToWordArray(new Uint8Array(keyBytes));
+
+    const ciphWordArray = uint8ArrayToWordArray(ciph);
+    const decrypted = CryptoJS.AES.decrypt({ ciphertext: ciphWordArray }, keyWordArray, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding,
+    });
+    pt = new Uint8Array(decrypted.words.length * 4);
+    for (let i = 0; i < decrypted.words.length; i++) {
+      pt.set(
+        [
+          (decrypted.words[i] >> 24) & 0xff,
+          (decrypted.words[i] >> 16) & 0xff,
+          (decrypted.words[i] >> 8) & 0xff,
+          decrypted.words[i] & 0xff,
+        ],
+        i * 4
+      );
+    }
+    pt = pt.slice(0, ciph.length); // Remove possible extra bytes
+    pt = pkcs7Unpad(pt);
+  } else {
+    // No user ID: treat file as already decrypted (e.g. PS5 save, pre-decrypted)
+    pt = ciph;
   }
-  pt = pt.slice(0, ciph.length); // Remove possible extra bytes
 
-  // Unpad PKCS7
-  pt = pkcs7Unpad(pt);
-
-  // After unpadding, try zlib inflate with different trims
-  // Files may have 4 or 8 extra bytes at the end after padding
-  // Try each option until one works
-  let trimOptions = [4, 8];
+  // Try zlib inflate with different trims.
+  // PC saves have 8 bytes of footer (adler32 + uncompressed length).
+  // Pre-decrypted saves may have 0, 4, or 8 bytes of footer.
+  const trimOptions = userID ? [4, 8] : [0, 4, 8];
   let inflated = null;
   let trimUsed = null;
   for (let trim of trimOptions) {
     try {
-      let candidate = pt.slice(0, pt.length - trim);
-      // Check for zlib header
-      if (candidate[0] !== 0x78) continue;
+      let candidate = trim === 0 ? pt : pt.slice(0, pt.length - trim);
+      if (candidate[0] !== 0x78) continue; // zlib magic byte check
       inflated = pako.inflate(candidate);
       trimUsed = trim;
       break;
@@ -151,7 +152,11 @@ function decryptSav(fileArrayBuffer, normalize = true) {
   }
 
   if (!inflated) {
-    alert('Zlib decompress failed. Wrong user ID or file format?');
+    if (!userID) {
+      alert('Failed to load save. If this is an encrypted PC save, enter your Steam or Epic user ID and try again.');
+    } else {
+      alert('Zlib decompress failed. Wrong user ID or file format?');
+    }
     return;
   }
 
@@ -164,16 +169,18 @@ function decryptSav(fileArrayBuffer, normalize = true) {
   return new TextDecoder().decode(yamlBytes);
 }
 
-// Encrypt YAML to .sav
+// Encrypt (or re-pack) YAML to .sav
 function encryptSav() {
   const file = document.getElementById('fileInput').files[0];
   const userID = document.getElementById('userIdInput').value.trim();
-  if (!file || !userID) {
-    alert('Please select a file and enter Steam/Epic ID.');
+  if (!file) {
+    alert('Please select a file first.');
     return;
   }
 
-  localStorage.setItem('bl4_previous_userid', userID);
+  if (userID) {
+    localStorage.setItem('bl4_previous_userid', userID);
+  }
 
   const yamlBytes = new TextEncoder().encode(editor.getValue());
 
@@ -196,49 +203,50 @@ function encryptSav() {
   // Append adler32 and uncompressed length (both little-endian, 4 bytes each)
   const packed = new Uint8Array(comp.length + 8);
   packed.set(comp, 0);
-  // adler32
   packed[comp.length + 0] = adler & 0xff;
   packed[comp.length + 1] = (adler >> 8) & 0xff;
   packed[comp.length + 2] = (adler >> 16) & 0xff;
   packed[comp.length + 3] = (adler >> 24) & 0xff;
-  // uncompressed length
   packed[comp.length + 4] = uncompressedLen & 0xff;
   packed[comp.length + 5] = (uncompressedLen >> 8) & 0xff;
   packed[comp.length + 6] = (uncompressedLen >> 16) & 0xff;
   packed[comp.length + 7] = (uncompressedLen >> 24) & 0xff;
 
-  // PKCS7 pad
-  const pt_padded = pkcs7Pad(packed);
-
-  // Derive key
-  const keyBytes = deriveKey(userID);
-  const keyWordArray = uint8ArrayToWordArray(new Uint8Array(keyBytes));
-
-  // Encrypt AES-ECB
-  const ptWordArray = CryptoJS.lib.WordArray.create(pt_padded);
-  const encrypted = CryptoJS.AES.encrypt(ptWordArray, keyWordArray, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.NoPadding,
-  });
-  // Convert to Uint8Array
-  const encBytes = new Uint8Array(encrypted.ciphertext.words.length * 4);
-  for (let i = 0; i < encrypted.ciphertext.words.length; i++) {
-    encBytes.set(
-      [
-        (encrypted.ciphertext.words[i] >> 24) & 0xff,
-        (encrypted.ciphertext.words[i] >> 16) & 0xff,
-        (encrypted.ciphertext.words[i] >> 8) & 0xff,
-        encrypted.ciphertext.words[i] & 0xff,
-      ],
-      i * 4
-    );
-  }
-
   const now = new Date();
-  const timestamp = now.toISOString().replace(/[-:T]/g, '').slice(0, 14); // e.g. 20250924153012
+  const timestamp = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
   const exportFilename = `${importFilename}_${timestamp.slice(0, 8)}_${timestamp.slice(8)}.sav`;
 
-  const blob = new Blob([encBytes], { type: 'application/octet-stream' });
+  let outBytes;
+
+  if (userID) {
+    // PC save: PKCS7 pad then AES-ECB encrypt
+    const pt_padded = pkcs7Pad(packed);
+    const keyBytes = deriveKey(userID);
+    const keyWordArray = uint8ArrayToWordArray(new Uint8Array(keyBytes));
+
+    const ptWordArray = CryptoJS.lib.WordArray.create(pt_padded);
+    const encrypted = CryptoJS.AES.encrypt(ptWordArray, keyWordArray, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding,
+    });
+    outBytes = new Uint8Array(encrypted.ciphertext.words.length * 4);
+    for (let i = 0; i < encrypted.ciphertext.words.length; i++) {
+      outBytes.set(
+        [
+          (encrypted.ciphertext.words[i] >> 24) & 0xff,
+          (encrypted.ciphertext.words[i] >> 16) & 0xff,
+          (encrypted.ciphertext.words[i] >> 8) & 0xff,
+          encrypted.ciphertext.words[i] & 0xff,
+        ],
+        i * 4
+      );
+    }
+  } else {
+    // No user ID: output without AES encryption (pre-decrypted / PS5 format)
+    outBytes = packed;
+  }
+
+  const blob = new Blob([outBytes], { type: 'application/octet-stream' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
